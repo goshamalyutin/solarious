@@ -70,16 +70,42 @@ function Hero() {
       className="relative isolate flex min-h-[100svh] w-full items-center justify-center overflow-hidden pt-[120px]"
       aria-label="Solarius hero"
     >
-      {/* Layered sunlight background */}
-      <div className="hero-sunlight -z-20" aria-hidden>
+      {/* z-30: layered sunlight base (white -> pearl wash + halo) */}
+      <div className="hero-sunlight -z-30" aria-hidden>
         <div className="god-rays">
           <i />
           <i />
           <i />
         </div>
-        <div className="hero-floorlight" aria-hidden />
-        <div className="hero-grain" aria-hidden />
       </div>
+
+      {/* z-20: PrismaticBurst — masked to a sun above the headline,
+              multiply with a pale-amber palette so it tints the page
+              without going dark. This is the "ray-marched sunlight". */}
+      <div
+        aria-hidden
+        className="absolute inset-x-0 top-0 -z-20 h-[85vh] opacity-[0.55] mix-blend-multiply"
+        style={{
+          maskImage:
+            "radial-gradient(ellipse 70% 80% at 50% 22%, black 0%, black 35%, transparent 75%)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse 70% 80% at 50% 22%, black 0%, black 35%, transparent 75%)",
+        }}
+      >
+        <PrismaticBurst
+          animationType="rotate3d"
+          intensity={1.4}
+          speed={0.22}
+          distort={0.6}
+          rayCount={28}
+          mixBlendMode="none"
+          colors={["#FFE3A3", "#FFD27A", "#FFC56B", "#FFB870", "#FFF6E0"]}
+        />
+      </div>
+
+      {/* z-15: warm floor-pool + soft grain */}
+      <div className="hero-floorlight -z-10" aria-hidden />
+      <div className="hero-grain -z-10" aria-hidden />
 
       <div className="relative mx-auto flex w-full max-w-2xl flex-col items-center px-6 pb-24 text-center sm:px-8">
         <span className="reveal mono inline-flex items-center gap-2 text-[10.5px] uppercase tracking-[0.22em] text-ink-faint">

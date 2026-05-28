@@ -436,95 +436,155 @@ p,
   );
 }
 
-/* A single, slow-breathing amber halo above the headline.
-   Big, very blurred — reads as a sun above the frame. */
+/* A compact amber halo hidden ABOVE the viewport — only its bottom
+   glow spills onto the page (so the nav isn't tinted orange). */
 .hero-sunlight::after {
   content: "";
   position: absolute;
   left: 50%;
-  top: -28vw;
-  width: 110vw;
-  height: 110vw;
-  max-width: 1400px;
-  max-height: 1400px;
+  top: -50vw;
+  width: 64vw;
+  height: 64vw;
+  max-width: 800px;
+  max-height: 800px;
   transform: translateX(-50%);
   border-radius: 999px;
   background: radial-gradient(
     circle at 50% 50%,
-    rgba(255, 232, 170, 0.95) 0%,
-    rgba(255, 200, 110, 0.55) 18%,
-    rgba(255, 170, 60, 0.18) 38%,
-    rgba(255, 140, 30, 0.05) 60%,
-    rgba(255, 140, 30, 0) 75%
+    rgba(255, 215, 120, 1) 0%,
+    rgba(255, 180, 70, 0.85) 22%,
+    rgba(255, 140, 30, 0.45) 42%,
+    rgba(255, 110, 10, 0.1) 62%,
+    rgba(255, 110, 10, 0) 78%
   );
-  filter: blur(20px);
+  filter: blur(10px);
+  mix-blend-mode: multiply;
   animation: sun-breathe 18s var(--ease-out) infinite;
   opacity: 0.95;
 }
 
-/* God rays — four soft fans pinned to the top center, each
-   rotated to a different angle. Pure CSS, no SVG, no motion. */
+/* God rays — true conic fan from a virtual sun above the page.
+   Conic gradient gives natural pin-point-narrow-to-wide ray shape
+   (vs CSS rectangles which look like columns, not light). */
 .god-rays {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  display: flex;
-  justify-content: center;
   overflow: hidden;
-}
-
-.god-rays::before,
-.god-rays::after,
-.god-rays > i {
-  content: "";
-  position: absolute;
-  top: -20vh;
-  left: 50%;
-  width: 38vw;
-  height: 140vh;
-  transform-origin: 50% 0;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 224, 158, 0.7) 0%,
-    rgba(255, 210, 130, 0.32) 30%,
-    rgba(255, 200, 110, 0.08) 60%,
-    rgba(255, 184, 0, 0) 100%
-  );
-  filter: blur(40px);
-  mix-blend-mode: screen;
-  opacity: 0.85;
+  mix-blend-mode: multiply;
+  z-index: 1;
 }
 
 .god-rays::before {
-  transform: translateX(-50%) rotate(-26deg);
-  width: 30vw;
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -8vh;
+  width: 220vw;
+  height: 140vh;
+  transform: translateX(-50%);
+  background: conic-gradient(
+    from 165deg at 50% 0%,
+    transparent 0deg,
+    transparent 6deg,
+    rgba(230, 110, 25, 0.32) 8deg,
+    rgba(230, 110, 25, 0.32) 9.5deg,
+    transparent 11.5deg,
+    transparent 17deg,
+    rgba(255, 150, 55, 0.4) 19deg,
+    rgba(255, 150, 55, 0.4) 20.5deg,
+    transparent 23deg,
+    transparent 28deg,
+    rgba(255, 180, 80, 0.32) 30deg,
+    rgba(255, 180, 80, 0.32) 31.5deg,
+    transparent 34deg,
+    transparent 39deg,
+    rgba(255, 200, 110, 0.22) 41deg,
+    transparent 43.5deg,
+    transparent 48deg,
+    rgba(255, 215, 140, 0.14) 50deg,
+    transparent 52.5deg,
+    transparent 360deg
+  );
+  filter: blur(14px);
+  opacity: 0.88;
+  /* Fade rays out toward the bottom of the hero so text stays clean */
+  mask-image: linear-gradient(180deg, black 0%, black 55%, transparent 92%);
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    black 0%,
+    black 55%,
+    transparent 92%
+  );
 }
 
+/* Mirror set — second conic flipped so we get a symmetrical fan */
 .god-rays::after {
-  transform: translateX(-50%) rotate(26deg);
-  width: 30vw;
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -8vh;
+  width: 220vw;
+  height: 140vh;
+  transform: translateX(-50%) scaleX(-1);
+  background: conic-gradient(
+    from 165deg at 50% 0%,
+    transparent 0deg,
+    transparent 6deg,
+    rgba(230, 110, 25, 0.32) 8deg,
+    rgba(230, 110, 25, 0.32) 9.5deg,
+    transparent 11.5deg,
+    transparent 17deg,
+    rgba(255, 150, 55, 0.4) 19deg,
+    rgba(255, 150, 55, 0.4) 20.5deg,
+    transparent 23deg,
+    transparent 28deg,
+    rgba(255, 180, 80, 0.32) 30deg,
+    rgba(255, 180, 80, 0.32) 31.5deg,
+    transparent 34deg,
+    transparent 39deg,
+    rgba(255, 200, 110, 0.22) 41deg,
+    transparent 43.5deg,
+    transparent 48deg,
+    rgba(255, 215, 140, 0.14) 50deg,
+    transparent 52.5deg,
+    transparent 360deg
+  );
+  filter: blur(14px);
+  opacity: 0.88;
+  mask-image: linear-gradient(180deg, black 0%, black 55%, transparent 92%);
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    black 0%,
+    black 55%,
+    transparent 92%
+  );
 }
 
+/* Center bright beam — single soft pillar through the middle */
 .god-rays > i:nth-child(1) {
-  transform: translateX(-50%) rotate(-11deg);
-  width: 16vw;
-  opacity: 0.6;
-}
-.god-rays > i:nth-child(2) {
-  transform: translateX(-50%) rotate(11deg);
-  width: 16vw;
-  opacity: 0.6;
-}
-.god-rays > i:nth-child(3) {
-  transform: translateX(-50%) rotate(0deg);
-  width: 22vw;
-  opacity: 0.4;
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 14vw;
+  height: 95vh;
+  transform: translateX(-50%);
   background: linear-gradient(
     180deg,
-    rgba(255, 245, 220, 0.85) 0%,
-    rgba(255, 230, 180, 0.25) 50%,
-    rgba(255, 200, 110, 0) 100%
+    rgba(255, 160, 60, 0.4) 0%,
+    rgba(255, 190, 100, 0.22) 35%,
+    rgba(255, 220, 160, 0.06) 70%,
+    rgba(255, 184, 0, 0) 100%
   );
+  filter: blur(28px);
+  opacity: 0.7;
+}
+
+/* The remaining <i> children are unused now */
+.god-rays > i:nth-child(2),
+.god-rays > i:nth-child(3) {
+  display: none;
 }
 
 /* Soft warmth on the bottom — sunlight pooling on the floor. */
