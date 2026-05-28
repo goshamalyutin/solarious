@@ -67,123 +67,67 @@ function Hero() {
   return (
     <section
       id="top"
-      className="relative isolate flex min-h-[100svh] w-full items-center overflow-hidden pt-[110px]"
+      className="relative isolate flex min-h-[100svh] w-full items-center justify-center overflow-hidden pt-[120px]"
       aria-label="Solarius hero"
     >
-      {/* z-0: PrismaticBurst — opt-in layered treatment per v2 spec */}
-      <div className="absolute inset-0 -z-20 opacity-80">
-        <PrismaticBurst
-          animationType="rotate3d"
-          intensity={1.5}
-          speed={0.3}
-          distort={1.0}
-          rayCount={32}
-          mixBlendMode="multiply"
-          colors={["#FFB800", "#F07501", "#E13202", "#FFD68F"]}
-        />
+      {/* Layered sunlight background */}
+      <div className="hero-sunlight -z-20" aria-hidden>
+        <div className="god-rays">
+          <i />
+          <i />
+          <i />
+        </div>
+        <div className="hero-floorlight" aria-hidden />
+        <div className="hero-grain" aria-hidden />
       </div>
 
-      {/* z-1: CSS-only corona divs */}
-      <div className="hero-corona-a -z-10" aria-hidden />
-      <div className="hero-corona-b -z-10" aria-hidden />
-      <div className="hero-corona-c -z-10" aria-hidden />
-      <div className="hero-grain -z-10" aria-hidden />
+      <div className="relative mx-auto flex w-full max-w-2xl flex-col items-center px-6 pb-24 text-center sm:px-8">
+        <span className="reveal mono inline-flex items-center gap-2 text-[10.5px] uppercase tracking-[0.22em] text-ink-faint">
+          <span className="pulse-dot" />
+          TGE · June 2026
+        </span>
 
-      {/* z-2: pearl vignette so corners read as page */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10"
-        style={{
-          background:
-            "radial-gradient(ellipse at 65% 50%, transparent 0%, transparent 42%, rgba(231,222,216,0.55) 78%, rgba(231,222,216,0.95) 100%)",
-        }}
-      />
+        <h1 className="reveal reveal-1 mt-6 text-balance text-[clamp(36px,4.6vw,56px)] font-medium leading-[1.06] tracking-[-0.025em]">
+          The <span className="orange-word">energy&#8209;backed</span>
+          <br />
+          blockchain.
+        </h1>
 
-      <div className="relative mx-auto grid w-full max-w-[1280px] grid-cols-1 items-center gap-12 px-6 pb-24 sm:px-8 md:grid-cols-12 md:pb-32">
-        <div className="md:col-span-7">
-          <span className="reveal mono inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] text-ink-muted">
-            <span className="pulse-dot" />
-            TGE · June 2026
-          </span>
+        <p className="reveal reveal-2 mt-6 max-w-md text-[15.5px] leading-[1.55] text-ink-muted">
+          Solar production is measured, verified, and written on-chain. Every
+          $SOLAR traces back to a real kilowatt.
+        </p>
 
-          <h1 className="reveal reveal-1 mt-7 text-balance">
-            The <span className="orange-word">energy&#8209;backed</span>
-            <br />
-            blockchain.
-          </h1>
-
-          <p className="reveal reveal-2 lead mt-7">
-            Solar production is measured, verified, and written on-chain. Every
-            $SOLAR traces back to a real kilowatt.
-          </p>
-
-          <div className="reveal reveal-3 mt-10 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
-            <a href="#whitelist" className="btn btn-primary btn-lg">
-              Join the Whitelist
-              <ArrowRight />
-            </a>
-            <a href="#poe" className="inline-block">
-              <GlassButton size="lg" className="text-ink">
-                Read the Docs
-              </GlassButton>
-            </a>
-          </div>
-
-          <dl className="reveal reveal-4 mt-14 grid max-w-2xl grid-cols-2 gap-x-10 gap-y-7 sm:grid-cols-4">
-            {[
-              { l: "Supply", v: "1B fixed" },
-              { l: "Consensus", v: "200 nodes" },
-              { l: "Verification", v: "zk + signed" },
-              { l: "Hardware", v: "DC-only" },
-            ].map((f) => (
-              <div key={f.l}>
-                <dt className="mono text-[11px] uppercase tracking-[0.16em] text-ink-faint">
-                  {f.l}
-                </dt>
-                <dd className="mt-2 text-[18px] font-semibold text-ink">
-                  {f.v}
-                </dd>
-              </div>
-            ))}
-          </dl>
+        <div className="reveal reveal-3 mt-9 flex flex-col items-center gap-3 sm:flex-row">
+          <a href="#whitelist" className="btn btn-primary">
+            Join the Whitelist
+            <ArrowRight />
+          </a>
+          <a href="#poe" className="inline-block">
+            <GlassButton size="default" className="text-ink">
+              Read the Docs
+            </GlassButton>
+          </a>
         </div>
 
-        <div className="relative hidden md:col-span-5 md:block">
-          <SolMark />
-        </div>
+        <dl className="reveal reveal-4 mt-16 flex flex-wrap items-center justify-center gap-x-9 gap-y-4 text-[12px]">
+          {[
+            { l: "Supply", v: "1B fixed" },
+            { l: "Consensus", v: "200 nodes" },
+            { l: "Verification", v: "zk + signed" },
+            { l: "Hardware", v: "DC-only" },
+          ].map((f) => (
+            <div key={f.l} className="flex items-center gap-2 text-ink-muted">
+              <dt className="mono uppercase tracking-[0.18em] text-ink-faint">
+                {f.l}
+              </dt>
+              <span className="text-ink-faint/40">·</span>
+              <dd className="text-ink">{f.v}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
-
-      <ScrollHint />
     </section>
-  );
-}
-
-function SolMark() {
-  return (
-    <div className="relative mx-auto aspect-square w-full max-w-[440px]">
-      <div
-        aria-hidden
-        className="absolute -inset-10 rounded-full"
-        style={{ background: "var(--corona)", filter: "blur(20px)" }}
-      />
-      <img
-        src="/assets/sol-mark.svg"
-        alt=""
-        aria-hidden
-        className="absolute inset-0 m-auto h-[70%] w-[70%] object-contain"
-      />
-    </div>
-  );
-}
-
-function ScrollHint() {
-  return (
-    <div className="pointer-events-none absolute bottom-8 left-1/2 -translate-x-1/2 text-[10px]">
-      <span className="mono uppercase tracking-[0.3em] text-ink-faint">
-        Scroll
-      </span>
-      <div className="mx-auto mt-2 h-10 w-px bg-ink/10" />
-    </div>
   );
 }
 

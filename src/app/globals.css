@@ -410,64 +410,163 @@ p,
   -webkit-backdrop-filter: blur(22px) saturate(160%);
 }
 
-/* ── Hero corona / grain (CSS-only, optional alongside the
-       opt-in WebGL PrismaticBurst) ────────────────────────── */
+/* ── Hero sunlight (CSS-only, light-mode native) ─────────────
+   Cathedral light: white pearl base + a single amber halo
+   high-up center + four soft god rays fanning downward.
+   ────────────────────────────────────────────────────────── */
 
-.hero-corona-a,
-.hero-corona-b,
-.hero-corona-c {
+.hero-sunlight {
   position: absolute;
-  border-radius: 999px;
+  inset: 0;
+  overflow: hidden;
   pointer-events: none;
-  filter: blur(40px);
 }
-.hero-corona-a {
-  width: 60vw;
-  height: 60vw;
-  max-width: 760px;
-  max-height: 760px;
-  top: -8vw;
-  right: -8vw;
-  background: var(--corona);
-  animation: sol-pulse 14s var(--ease-out) infinite;
+
+/* The page is naturally warm white from pearl — we wash it brighter
+   at the top with a soft white-to-pearl gradient. */
+.hero-sunlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    #fffaf3 0%,
+    #faf2e8 38%,
+    var(--pearl) 100%
+  );
+}
+
+/* A single, slow-breathing amber halo above the headline.
+   Big, very blurred — reads as a sun above the frame. */
+.hero-sunlight::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -28vw;
+  width: 110vw;
+  height: 110vw;
+  max-width: 1400px;
+  max-height: 1400px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 232, 170, 0.95) 0%,
+    rgba(255, 200, 110, 0.55) 18%,
+    rgba(255, 170, 60, 0.18) 38%,
+    rgba(255, 140, 30, 0.05) 60%,
+    rgba(255, 140, 30, 0) 75%
+  );
+  filter: blur(20px);
+  animation: sun-breathe 18s var(--ease-out) infinite;
+  opacity: 0.95;
+}
+
+/* God rays — four soft fans pinned to the top center, each
+   rotated to a different angle. Pure CSS, no SVG, no motion. */
+.god-rays {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.god-rays::before,
+.god-rays::after,
+.god-rays > i {
+  content: "";
+  position: absolute;
+  top: -20vh;
+  left: 50%;
+  width: 38vw;
+  height: 140vh;
+  transform-origin: 50% 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 224, 158, 0.7) 0%,
+    rgba(255, 210, 130, 0.32) 30%,
+    rgba(255, 200, 110, 0.08) 60%,
+    rgba(255, 184, 0, 0) 100%
+  );
+  filter: blur(40px);
+  mix-blend-mode: screen;
   opacity: 0.85;
 }
-.hero-corona-b {
-  width: 50vw;
-  height: 50vw;
-  max-width: 620px;
-  max-height: 620px;
-  bottom: -12vw;
-  left: -8vw;
-  background: radial-gradient(
-    circle,
-    rgba(255, 184, 0, 0.35),
-    rgba(0, 0, 0, 0) 75%
-  );
-  animation: sol-drift-a 22s var(--ease-out) infinite;
-}
-.hero-corona-c {
-  width: 40vw;
-  height: 40vw;
-  max-width: 480px;
-  max-height: 480px;
-  top: 40%;
-  right: 20%;
-  background: radial-gradient(
-    circle,
-    rgba(225, 50, 2, 0.18),
-    rgba(0, 0, 0, 0) 70%
-  );
-  animation: sol-drift-b 28s var(--ease-out) infinite;
+
+.god-rays::before {
+  transform: translateX(-50%) rotate(-26deg);
+  width: 30vw;
 }
 
+.god-rays::after {
+  transform: translateX(-50%) rotate(26deg);
+  width: 30vw;
+}
+
+.god-rays > i:nth-child(1) {
+  transform: translateX(-50%) rotate(-11deg);
+  width: 16vw;
+  opacity: 0.6;
+}
+.god-rays > i:nth-child(2) {
+  transform: translateX(-50%) rotate(11deg);
+  width: 16vw;
+  opacity: 0.6;
+}
+.god-rays > i:nth-child(3) {
+  transform: translateX(-50%) rotate(0deg);
+  width: 22vw;
+  opacity: 0.4;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 245, 220, 0.85) 0%,
+    rgba(255, 230, 180, 0.25) 50%,
+    rgba(255, 200, 110, 0) 100%
+  );
+}
+
+/* Soft warmth on the bottom — sunlight pooling on the floor. */
+.hero-floorlight {
+  position: absolute;
+  left: 50%;
+  bottom: -10vw;
+  transform: translateX(-50%);
+  width: 80vw;
+  height: 40vw;
+  max-width: 1200px;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 200, 120, 0.35) 0%,
+    rgba(255, 184, 0, 0.12) 30%,
+    rgba(255, 184, 0, 0) 65%
+  );
+  filter: blur(30px);
+  opacity: 0.9;
+}
+
+/* Light grain — much subtler than the v1 ink-grain. */
 .hero-grain {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 0.08 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-  opacity: 0.5;
-  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 0.85  0 0 0 0 0.55  0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  opacity: 0.7;
+  mix-blend-mode: overlay;
+}
+
+@keyframes sun-breathe {
+  0%,
+  100% {
+    opacity: 0.85;
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.04);
+  }
 }
 
 /* ── Pulse dot (eyebrow signal) ───────────────────────────── */
