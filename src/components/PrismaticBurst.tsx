@@ -253,7 +253,14 @@ const PrismaticBurst = ({
     if (!container) return;
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const renderer = new Renderer({ dpr, alpha: false, antialias: false });
+    let renderer: Renderer;
+    try {
+      renderer = new Renderer({ dpr, alpha: false, antialias: false });
+    } catch {
+      // WebGL unavailable (headless, blocked, or unsupported) — fail silent.
+      // Surrounding warm-blob gradients still carry the corona aesthetic.
+      return;
+    }
     rendererRef.current = renderer;
 
     const gl = renderer.gl;

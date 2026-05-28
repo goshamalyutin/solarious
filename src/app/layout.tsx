@@ -1,31 +1,43 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { IBM_Plex_Sans, Montserrat, Fraunces } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const plex = IBM_Plex_Sans({
+  variable: "--font-plex",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
+  weight: ["700", "800"],
+  display: "swap",
+});
+
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["italic"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Solarius — Energy that moves with the sun",
+  title: "Solarius — The energy-backed blockchain",
   description:
-    "Solarius turns daylight into compute. Schedule, route, and bill electricity the way you ship software.",
+    "Solar production is measured, verified, and written on-chain. Every $SOLAR traces back to a real kilowatt.",
   metadataBase: new URL("https://solarius.vercel.app"),
   openGraph: {
-    title: "Solarius",
-    description: "Energy that moves with the sun.",
+    title: "Solarius — The energy-backed blockchain",
+    description: "A Layer-1 anchored to real energy. TGE June 2026.",
     type: "website",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#ffffff",
+  themeColor: "#E7DED8",
   colorScheme: "light",
 };
 
@@ -37,9 +49,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${plex.variable} ${montserrat.variable} ${fraunces.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full bg-pearl text-ink flex flex-col font-sans">
+        {children}
+      </body>
     </html>
   );
 }
