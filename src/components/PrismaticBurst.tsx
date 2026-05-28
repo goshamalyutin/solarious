@@ -188,8 +188,15 @@ void main(){
 
     col *= edgeFade(frag, uResolution, uOffset);
     col *= uIntensity;
+    col = clamp(col, 0.0, 1.0);
 
-    fragColor = vec4(clamp(col, 0.0, 1.0), 1.0);
+    // Light-mode output: alpha = luminance.
+    // Dark ray-march regions become transparent so the page shows
+    // through; bright amber rays stay opaque and paint the page.
+    // Premultiplied alpha so the canvas composites correctly with
+    // mix-blend-mode on a light background.
+    float a = max(col.r, max(col.g, col.b));
+    fragColor = vec4(col * a, a);
 }`;
 
 const hexToRgb01 = (hex: string): [number, number, number] => {
@@ -255,7 +262,15 @@ const PrismaticBurst = ({
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     let renderer: Renderer;
     try {
-      renderer = new Renderer({ dpr, alpha: false, antialias: false });
+      // alpha: true gives us a transparent canvas so dark ray-march
+      // regions can let the underlying page show through. premultipliedAlpha
+      // matches the shader's `vec4(col * a, a)` output.
+      renderer = new Renderer({
+        dpr,
+        alpha: true,
+        antialias: false,
+        premultipliedAlpha: true,
+      });
     } catch {
       // WebGL unavailable (headless, blocked, or unsupported) — fail silent.
       // Surrounding warm-blob gradients still carry the corona aesthetic.
@@ -264,6 +279,12 @@ const PrismaticBurst = ({
     rendererRef.current = renderer;
 
     const gl = renderer.gl;
+    // Clear to fully transparent (vs the default opaque black) so the
+    // page background remains visible everywhere the shader doesn't
+    // emit light.
+    gl.clearColor(0, 0, 0, 0);
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
     gl.canvas.style.position = "absolute";
     gl.canvas.style.inset = "0";
     gl.canvas.style.width = "100%";

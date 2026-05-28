@@ -70,42 +70,41 @@ function Hero() {
       className="relative isolate flex min-h-[100svh] w-full items-center justify-center overflow-hidden pt-[120px]"
       aria-label="Solarius hero"
     >
-      {/* z-30: layered sunlight base (white -> pearl wash + halo) */}
-      <div className="hero-sunlight -z-30" aria-hidden>
-        <div className="god-rays">
-          <i />
-          <i />
-          <i />
-        </div>
-      </div>
+      {/* z-30: base white -> pearl wash + amber halo high above */}
+      <div className="hero-sunlight -z-30" aria-hidden />
 
-      {/* z-20: PrismaticBurst — masked to a sun above the headline,
-              multiply with a pale-amber palette so it tints the page
-              without going dark. This is the "ray-marched sunlight". */}
+      {/* z-20: PrismaticBurst — now light-mode native. The shader
+         outputs premultiplied alpha (alpha = luminance) so dark
+         ray-march regions are transparent and the pearl page shows
+         through them. Bright amber rays paint over the page. */}
       <div
         aria-hidden
-        className="absolute inset-x-0 top-0 -z-20 h-[85vh] opacity-[0.55] mix-blend-multiply"
+        className="absolute inset-0 -z-20"
         style={{
           maskImage:
-            "radial-gradient(ellipse 70% 80% at 50% 22%, black 0%, black 35%, transparent 75%)",
+            "radial-gradient(ellipse 95% 100% at 50% 28%, black 0%, black 55%, transparent 92%)",
           WebkitMaskImage:
-            "radial-gradient(ellipse 70% 80% at 50% 22%, black 0%, black 35%, transparent 75%)",
+            "radial-gradient(ellipse 95% 100% at 50% 28%, black 0%, black 55%, transparent 92%)",
         }}
       >
         <PrismaticBurst
           animationType="rotate3d"
-          intensity={1.4}
+          intensity={2.2}
           speed={0.22}
           distort={0.6}
-          rayCount={28}
-          mixBlendMode="none"
-          colors={["#FFE3A3", "#FFD27A", "#FFC56B", "#FFB870", "#FFF6E0"]}
+          rayCount={32}
+          mixBlendMode="multiply"
+          colors={["#FFB060", "#FF9540", "#FFC97A", "#FFD68F", "#FFE3A3"]}
         />
       </div>
 
-      {/* z-15: warm floor-pool + soft grain */}
-      <div className="hero-floorlight -z-10" aria-hidden />
-      <div className="hero-grain -z-10" aria-hidden />
+      {/* z-10: conic CSS god-rays — atmospheric fallback for WebGL-disabled
+         contexts; harmonizes with PrismaticBurst when both render */}
+      <div className="god-rays -z-10" aria-hidden />
+
+      {/* z-5: warm floor-pool + soft grain */}
+      <div className="hero-floorlight -z-5" aria-hidden />
+      <div className="hero-grain -z-5" aria-hidden />
 
       <div className="relative mx-auto flex w-full max-w-2xl flex-col items-center px-6 pb-24 text-center sm:px-8">
         <span className="reveal mono inline-flex items-center gap-2 text-[10.5px] uppercase tracking-[0.22em] text-ink-faint">
