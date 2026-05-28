@@ -1,26 +1,33 @@
 import type { Metadata, Viewport } from "next";
-import { IBM_Plex_Sans, Montserrat, Fraunces } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const plex = IBM_Plex_Sans({
-  variable: "--font-plex",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+const geist = localFont({
+  variable: "--font-sans",
+  src: [
+    {
+      path: "../../public/fonts/Geist[wght].woff2",
+      weight: "100 900",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/Geist-Italic[wght].woff2",
+      weight: "100 900",
+      style: "italic",
+    },
+  ],
   display: "swap",
 });
 
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
-  subsets: ["latin"],
-  weight: ["700", "800"],
-  display: "swap",
-});
-
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
-  subsets: ["latin"],
-  weight: ["400"],
-  style: ["italic"],
+const geistMono = localFont({
+  variable: "--font-mono",
+  src: [
+    {
+      path: "../../public/fonts/GeistMono[wght].woff2",
+      weight: "100 900",
+      style: "normal",
+    },
+  ],
   display: "swap",
 });
 
@@ -49,9 +56,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${plex.variable} ${montserrat.variable} ${fraunces.variable} h-full antialiased`}
+      className={`${geist.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-pearl text-ink flex flex-col font-sans">
+      <body className="flex min-h-full flex-col bg-pearl font-sans text-ink">
         {children}
       </body>
     </html>
