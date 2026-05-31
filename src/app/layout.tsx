@@ -31,13 +31,43 @@ const geistMono = localFont({
   display: "swap",
 });
 
+// Display face for headlines only (h1/h2/.h-mega). Body + UI stay on Geist;
+// labels/units stay on Geist Mono. Clash Display: geometric, confident, not a
+// default. Chosen over Schibsted Grotesk for stronger headline-vs-body contrast.
+const clashDisplay = localFont({
+  variable: "--font-display",
+  src: [
+    {
+      path: "../../public/fonts/ClashDisplay-400.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/ClashDisplay-500.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/ClashDisplay-600.woff2",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/ClashDisplay-700.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  title: "Solarius — The energy-backed blockchain",
+  title: "Solarious — The energy-backed blockchain",
   description:
     "Solar production is measured, verified, and written on-chain. Every $SOLAR traces back to a real kilowatt.",
   metadataBase: new URL("https://solarius.vercel.app"),
   openGraph: {
-    title: "Solarius — The energy-backed blockchain",
+    title: "Solarious — The energy-backed blockchain",
     description: "A Layer-1 anchored to real energy. TGE June 2026.",
     type: "website",
   },
@@ -56,7 +86,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geist.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geist.variable} ${geistMono.variable} ${clashDisplay.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-pearl font-sans text-ink">
         {children}

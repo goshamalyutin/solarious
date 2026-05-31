@@ -23,7 +23,7 @@ export function Logo({
   return (
     <Image
       src={src}
-      alt="Solarius"
+      alt="Solarious"
       width={width}
       height={height}
       className={className}
