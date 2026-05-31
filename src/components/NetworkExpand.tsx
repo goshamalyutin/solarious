@@ -174,6 +174,8 @@ export function NetworkExpand() {
             keeps "emerging from the light", now bookended by a held dark beat. */}
         <div className="relative z-10 flex flex-1 items-center justify-center">
           <motion.div className="w-full" style={{ scale }}>
+            {/* The reel stays at full brightness through the whole arc — only
+                the surface BEHIND it eclipses. The footage is never veiled. */}
             <video
               ref={videoRef}
               suppressHydrationWarning

@@ -836,21 +836,21 @@ function Footer() {
 
   return (
     <footer className="relative w-full bg-midnight text-white/80">
-      <div className="relative mx-auto max-w-[1280px] px-6 py-20 sm:px-8 lg:py-24">
+      <div className="relative mx-auto max-w-[1280px] px-6 py-24 sm:px-8 lg:py-32">
         {/* Brand left, link columns as an even-gap group on the right. */}
-        <div className="flex flex-col gap-14 lg:flex-row lg:justify-between lg:gap-24">
-          <div className="max-w-xs">
+        <div className="flex flex-col gap-16 lg:flex-row lg:justify-between lg:gap-24">
+          <div className="max-w-sm">
             <Logo
               variant="white"
-              className="h-7 w-auto"
-              width={160}
-              height={28}
+              className="h-9 w-auto"
+              width={205}
+              height={36}
             />
-            <p className="mt-6 text-[14.5px] leading-[1.65] text-white/55">
+            <p className="mt-7 text-[15px] leading-[1.7] text-white/55">
               The energy-backed blockchain. Solar production measured, verified,
               and written on-chain.
             </p>
-            <p className="mono mt-8 text-[11px] uppercase tracking-[0.18em] text-white/40">
+            <p className="mono mt-10 text-[11px] uppercase tracking-[0.2em] text-white/40">
               TGE · June 2026
             </p>
           </div>
@@ -889,7 +889,7 @@ function Footer() {
         </div>
 
         {/* Bottom bar: legal left, copyright right. */}
-        <div className="mt-16 flex flex-col gap-5 border-t border-white/10 pt-8 sm:mt-20 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-20 flex flex-col gap-5 border-t border-white/10 pt-10 sm:mt-28 sm:flex-row sm:items-center sm:justify-between">
           <ul className="flex flex-wrap gap-x-6 gap-y-2 text-[12px] text-white/45">
             {legal.map((l) => (
               <li key={l}>
