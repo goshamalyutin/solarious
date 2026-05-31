@@ -545,16 +545,17 @@ function Security() {
 /* ───────────────────────────────────────────────────── TOKEN (donut) */
 
 function Token() {
-  // Single-hue warm ramp: orange accent for the largest slice, darkening
-  // toward ink for the smaller ones. No second accent color (the old palette
-  // mixed flame red + gold + brown, which broke the one-accent rule).
+  // Warm solar spectrum, orange-anchored: gold -> orange -> ember -> copper ->
+  // brown -> espresso. Analogous hues (all in the warm family, so it stays on
+  // the single-accent story) but spread in hue AND lightness so every slice is
+  // clearly distinguishable — the old all-brown ramp blurred together.
   const segments = [
     { name: "Ecosystem", pct: 34.0, color: "#F07501" },
-    { name: "Validator rewards", pct: 25.5, color: "#C9691E" },
-    { name: "Investors", pct: 15.0, color: "#9A521F" },
-    { name: "Reserves & Listing", pct: 9.0, color: "#6E3F20" },
-    { name: "Producer rewards", pct: 8.5, color: "#473023" },
-    { name: "Team & Advisors", pct: 8.0, color: "#2D2926" },
+    { name: "Validator rewards", pct: 25.5, color: "#FFB323" },
+    { name: "Investors", pct: 15.0, color: "#E8431C" },
+    { name: "Reserves & Listing", pct: 9.0, color: "#B26A35" },
+    { name: "Producer rewards", pct: 8.5, color: "#7E5638" },
+    { name: "Team & Advisors", pct: 8.0, color: "#4A3328" },
   ];
   const C = 2 * Math.PI * 80;
   let cumulative = 0;
@@ -604,7 +605,7 @@ function Token() {
               >
                 <span className="flex items-center gap-3 text-ink">
                   <span
-                    className="inline-block h-2.5 w-2.5 rounded-sm"
+                    className="inline-block h-3 w-3 shrink-0 rounded-[3px]"
                     style={{ background: s.color }}
                   />
                   {s.name}
@@ -835,55 +836,60 @@ function Footer() {
 
   return (
     <footer className="relative w-full bg-midnight text-white/80">
-      <div className="relative mx-auto max-w-[1280px] px-6 py-20 sm:px-8">
-        <div className="grid gap-12 md:grid-cols-12">
-          <div className="md:col-span-4">
+      <div className="relative mx-auto max-w-[1280px] px-6 py-20 sm:px-8 lg:py-24">
+        {/* Brand left, link columns as an even-gap group on the right. */}
+        <div className="flex flex-col gap-14 lg:flex-row lg:justify-between lg:gap-24">
+          <div className="max-w-xs">
             <Logo
               variant="white"
               className="h-7 w-auto"
               width={160}
               height={28}
             />
-            <p className="mt-6 max-w-sm text-[14.5px] leading-[1.65] text-white/55">
+            <p className="mt-6 text-[14.5px] leading-[1.65] text-white/55">
               The energy-backed blockchain. Solar production measured, verified,
               and written on-chain.
             </p>
-            <p className="mono mt-10 text-[11px] uppercase tracking-[0.18em] text-white/40">
+            <p className="mono mt-8 text-[11px] uppercase tracking-[0.18em] text-white/40">
               TGE · June 2026
             </p>
           </div>
-          <FooterCol
-            title="Resources"
-            links={[
-              "News",
-              "Whitepaper",
-              "Executive Summary",
-              "Investor Model",
-              "Investor Thesis",
-              "Presentation",
-            ]}
-          />
-          <FooterCol
-            title="Protocol"
-            links={["Explorer", "API Docs", "GitHub"]}
-          />
-          <FooterCol
-            title="Products"
-            links={[
-              "CryptoCat",
-              "Verdex Wallet",
-              "Mining Pool",
-              "SOLAR Miners",
-              "Alpha Nodes",
-            ]}
-          />
-          <FooterCol
-            title="Community"
-            links={["X", "Telegram", "LinkedIn", "Contact"]}
-          />
+
+          <div className="grid grid-cols-2 gap-x-10 gap-y-12 sm:grid-cols-4 sm:gap-x-14 lg:gap-x-20">
+            <FooterCol
+              title="Resources"
+              links={[
+                "News",
+                "Whitepaper",
+                "Executive Summary",
+                "Investor Model",
+                "Investor Thesis",
+                "Presentation",
+              ]}
+            />
+            <FooterCol
+              title="Protocol"
+              links={["Explorer", "API Docs", "GitHub"]}
+            />
+            <FooterCol
+              title="Products"
+              links={[
+                "CryptoCat",
+                "Verdex Wallet",
+                "Mining Pool",
+                "SOLAR Miners",
+                "Alpha Nodes",
+              ]}
+            />
+            <FooterCol
+              title="Community"
+              links={["X", "Telegram", "LinkedIn", "Contact"]}
+            />
+          </div>
         </div>
 
-        <div className="mt-16 border-t border-white/10 pt-8">
+        {/* Bottom bar: legal left, copyright right. */}
+        <div className="mt-16 flex flex-col gap-5 border-t border-white/10 pt-8 sm:mt-20 sm:flex-row sm:items-center sm:justify-between">
           <ul className="flex flex-wrap gap-x-6 gap-y-2 text-[12px] text-white/45">
             {legal.map((l) => (
               <li key={l}>
@@ -893,8 +899,8 @@ function Footer() {
               </li>
             ))}
           </ul>
-          <div className="mono mt-6 text-[12px] text-white/40">
-            © Solarious 2026 All rights reserved
+          <div className="mono shrink-0 text-[12px] text-white/40">
+            © 2026 Solarious. All rights reserved.
           </div>
         </div>
       </div>
@@ -904,14 +910,14 @@ function Footer() {
 
 function FooterCol({ title, links }: { title: string; links: string[] }) {
   return (
-    <div className="md:col-span-2">
+    <div>
       <div className="mono text-[11px] uppercase tracking-[0.18em] text-white/45">
         {title}
       </div>
-      <ul className="mt-5 space-y-3 text-[14px]">
+      <ul className="mt-5 space-y-3.5 text-[14px]">
         {links.map((l) => (
           <li key={l}>
-            <a href="#" className="text-white/75 transition hover:text-white">
+            <a href="#" className="text-white/70 transition hover:text-white">
               {l}
             </a>
           </li>
