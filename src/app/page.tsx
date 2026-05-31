@@ -1,7 +1,7 @@
 import { Logo } from "@/components/Logo";
 import { Nav } from "@/components/Nav";
 import { HeroPrismatic } from "@/components/hero/HeroPrismatic";
-import { VideoShowcase } from "@/components/VideoShowcase";
+import { NetworkExpand } from "@/components/NetworkExpand";
 import { WhitelistForm } from "@/components/WhitelistForm";
 import { Reveal } from "@/components/Reveal";
 import { SectionHead } from "@/components/SectionHead";
@@ -15,7 +15,7 @@ export default function Home() {
       <Nav />
       <HeroPrismatic />
       <TrustStrip />
-      <VideoShowcase />
+      <NetworkExpand />
       <About />
       <Metrics />
       <ProofOfEnergy />
