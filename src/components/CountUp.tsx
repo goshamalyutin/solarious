@@ -7,6 +7,10 @@ interface CountUpProps {
   value: number;
   /** Decimal places to display. */
   decimals?: number;
+  /** Group thousands with commas, e.g. 204,358. */
+  group?: boolean;
+  /** Trailing unit rendered after the number, e.g. "s". */
+  suffix?: string;
   durationMs?: number;
   className?: string;
 }
@@ -18,6 +22,8 @@ interface CountUpProps {
 export function CountUp({
   value,
   decimals = 0,
+  group = false,
+  suffix = "",
   durationMs = 1100,
   className,
 }: CountUpProps) {
@@ -57,9 +63,17 @@ export function CountUp({
     return () => io.disconnect();
   }, [value, durationMs]);
 
+  const formatted = group
+    ? display.toLocaleString("en-US", {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals,
+      })
+    : display.toFixed(decimals);
+
   return (
     <span ref={ref} className={className}>
-      {display.toFixed(decimals)}
+      {formatted}
+      {suffix}
     </span>
   );
 }

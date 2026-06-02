@@ -11,11 +11,11 @@ import { motion, useReducedMotion } from "framer-motion";
  * get the final state immediately (no transform, no blur).
  *
  * The headline is hard-coded as two lines so we control the line break and
- * the single orange word ("energy-backed") per the brand rule.
+ * the single orange word ("Proof-of-Energy") per the brand rule.
  */
 
-const LINE_ONE = ["The", "energy-backed"];
-const LINE_TWO = ["blockchain."];
+const LINE_ONE = ["The", "Proof-of-Energy", "Layer-1"];
+const LINE_TWO = ["for", "verified", "renewable", "production."];
 
 export function HeroHeadline() {
   const reduce = useReducedMotion();
@@ -44,7 +44,7 @@ export function HeroHeadline() {
       variants={container}
       initial="hidden"
       animate="show"
-      className="mt-7 text-balance font-semibold leading-[1.0] text-[clamp(42px,6.6vw,80px)]"
+      className="mt-2 font-semibold leading-[1.04] text-[clamp(34px,5vw,60px)]"
       style={{ letterSpacing: "var(--display-track)" }}
     >
       <span className="block">
@@ -52,7 +52,7 @@ export function HeroHeadline() {
           <motion.span
             key={w}
             variants={word}
-            className={`inline-block ${w === "energy-backed" ? "orange-word" : ""}`}
+            className={`inline-block ${w === "Proof-of-Energy" ? "orange-word" : ""}`}
             style={{ willChange: "transform, filter, opacity" }}
           >
             {w}
@@ -68,7 +68,7 @@ export function HeroHeadline() {
             className="inline-block"
             style={{ willChange: "transform, filter, opacity" }}
           >
-            {w}
+            {w}{" "}
           </motion.span>
         ))}
       </span>

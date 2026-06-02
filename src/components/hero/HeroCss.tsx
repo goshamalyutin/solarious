@@ -19,7 +19,6 @@ export function HeroCss() {
       <div className="hl-stage -z-10" aria-hidden>
         <div className="hl-base" />
         <div className="hl-halo" />
-        <div className="hl-grain" />
       </div>
 
       <HeroContent />

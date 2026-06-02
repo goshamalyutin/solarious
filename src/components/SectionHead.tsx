@@ -21,7 +21,7 @@ export function SectionHead({
   index,
 }: SectionHeadProps) {
   return (
-    <Reveal>
+    <Reveal className="mb-6 md:mb-8">
       <div className="relative max-w-3xl">
         {index && (
           <span className="mono absolute right-0 top-1 hidden text-[11px] uppercase tracking-[0.2em] text-ink-faint md:block">

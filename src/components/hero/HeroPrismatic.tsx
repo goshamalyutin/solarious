@@ -67,10 +67,11 @@ export function HeroPrismatic({
       aria-label="Solarious hero"
     >
       {/* Light base = SSR default AND the reduced-motion / no-WebGL fallback. */}
+      {/* Clean light only — the grain/noise overlay that dirtied the beams was
+          removed per brief §2.2 (B1). Base wash + halo, nothing over the rays. */}
       <div className="hl-stage -z-20" aria-hidden>
         <div className="hl-base" />
         <div className="hl-halo" />
-        <div className="hl-grain" />
       </div>
 
       {/*

@@ -135,7 +135,7 @@ export function NetworkExpand() {
             aria-label="Solarius product reel"
           />
         </figure>
-        <div className="mx-auto max-w-[1280px] px-6 sm:px-8">
+        <div className="mx-auto max-w-[1200px] px-5 md:px-8">
           <Slate muted={muted} paused={paused} reduced />
         </div>
       </section>
@@ -196,7 +196,7 @@ export function NetworkExpand() {
             ink -> white -> ink so it survives the eclipse. */}
         <motion.div
           style={{ color: slateColor }}
-          className="relative z-20 mx-auto w-full max-w-[1280px] px-6 pb-[clamp(20px,4vh,40px)] sm:px-8"
+          className="relative z-20 mx-auto w-full max-w-[1200px] px-5 pb-[clamp(20px,4vh,40px)] md:px-8"
         >
           <Slate
             muted={muted}

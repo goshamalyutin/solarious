@@ -64,8 +64,8 @@ export default function HeroLab() {
             Built on verifiable infrastructure
           </p>
           <p className="mx-auto mt-5 max-w-xl text-[15px] text-ink-muted">
-            Proof-of-Energy · 200-node consensus · zk verification · DC-only
-            hardware
+            Renewable-energy verification · Proof-of-Energy · Solar Miner
+            measurement · Validator infrastructure
           </p>
         </div>
       </section>
