@@ -323,7 +323,11 @@ const PrismaticBurst = ({
         uDistort: { value: 0 },
         uOffset: { value: [0, 0] as [number, number] },
         uGradient: { value: gradientTex },
-        uNoiseAmount: { value: 0.8 },
+        // Grain removed (brief §2.2 / B1): the rays carried a noisy/speckled
+        // texture from this shader-internal noise term. Zeroed so the beams
+        // render clean — shape/color/opacity/position are untouched (those come
+        // from rayPattern, rayCount, the gradient, intensity and offset).
+        uNoiseAmount: { value: 0 },
         uRayCount: { value: 0 },
       },
     });
