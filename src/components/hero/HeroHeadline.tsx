@@ -1,5 +1,6 @@
 "use client";
 
+import { Fragment } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
 /**
@@ -12,6 +13,11 @@ import { motion, useReducedMotion } from "framer-motion";
  *
  * The headline is hard-coded as two lines so we control the line break and
  * the single orange word ("Proof-of-Energy") per the brand rule.
+ *
+ * Inter-word spacing is rendered as a sibling text node between the inline-block
+ * word spans. A trailing space *inside* an inline-block collapses (that broke
+ * "for verified renewable" -> "forverifiedrenewable"), and an &nbsp; would stop
+ * the line wrapping on mobile. A sibling " " renders reliably and still wraps.
  */
 
 const LINE_ONE = ["The", "Proof-of-Energy", "Layer-1"];
@@ -39,6 +45,23 @@ export function HeroHeadline() {
     },
   };
 
+  const renderLine = (words: string[], accent?: string) => (
+    <span className="block">
+      {words.map((w, i) => (
+        <Fragment key={w}>
+          <motion.span
+            variants={word}
+            className={`inline-block${w === accent ? " orange-word" : ""}`}
+            style={{ willChange: "transform, filter, opacity" }}
+          >
+            {w}
+          </motion.span>
+          {i < words.length - 1 ? " " : null}
+        </Fragment>
+      ))}
+    </span>
+  );
+
   return (
     <motion.h1
       variants={container}
@@ -47,31 +70,8 @@ export function HeroHeadline() {
       className="mt-2 font-semibold leading-[1.04] text-[clamp(34px,5vw,60px)]"
       style={{ letterSpacing: "var(--display-track)" }}
     >
-      <span className="block">
-        {LINE_ONE.map((w) => (
-          <motion.span
-            key={w}
-            variants={word}
-            className={`inline-block ${w === "Proof-of-Energy" ? "orange-word" : ""}`}
-            style={{ willChange: "transform, filter, opacity" }}
-          >
-            {w}
-            {" "}
-          </motion.span>
-        ))}
-      </span>
-      <span className="block">
-        {LINE_TWO.map((w) => (
-          <motion.span
-            key={w}
-            variants={word}
-            className="inline-block"
-            style={{ willChange: "transform, filter, opacity" }}
-          >
-            {w}{" "}
-          </motion.span>
-        ))}
-      </span>
+      {renderLine(LINE_ONE, "Proof-of-Energy")}
+      {renderLine(LINE_TWO)}
     </motion.h1>
   );
 }
