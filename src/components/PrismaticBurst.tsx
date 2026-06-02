@@ -58,7 +58,10 @@ float hash21(vec2 p){
 mat2 rot30(){ return mat2(0.8, -0.5, 0.5, 0.8); }
 
 float layeredNoise(vec2 fragPx){
-    vec2 p = mod(fragPx + vec2(uTime * 30.0, -uTime * 21.0), 1024.0);
+    // Static dither (B1 / no flicker): the uTime scroll here made the beams
+    // crackle frame-to-frame ("지직거림"). Frozen so each frame stays identical
+    // to the original beams (shape/texture/colour kept) without the flicker.
+    vec2 p = mod(fragPx, 1024.0);
     vec2 q = rot30() * p;
     float n = 0.0;
     n += 0.40 * hash21(q);
@@ -115,7 +118,7 @@ void main(){
     vec3 dir = rayDir(frag, uResolution, uOffset, 1.0);
     float marchT = 0.0;
     vec3 col = vec3(0.0);
-    float n = layeredNoise(frag);
+    float n = 0.5; // B1: mean noise (no per-pixel flicker), same average march
     vec4 c = cos(t * 0.2 + vec4(0.0, 33.0, 11.0, 0.0));
     mat2 M2 = mat2(c.x, c.y, c.z, c.w);
     float amp = clamp(uDistort, 0.0, 50.0) * 0.15;
