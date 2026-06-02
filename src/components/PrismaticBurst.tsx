@@ -58,7 +58,11 @@ float hash21(vec2 p){
 mat2 rot30(){ return mat2(0.8, -0.5, 0.5, 0.8); }
 
 float layeredNoise(vec2 fragPx){
-    vec2 p = mod(fragPx + vec2(uTime * 30.0, -uTime * 21.0), 1024.0);
+    // Frozen dither: the original scrolled this noise with uTime (fragPx +
+    // uTime*30), which crackled per-pixel ("지직거림"). Dropping the uTime term
+    // keeps the exact grain texture (so the beams stay premium, not flat) but
+    // makes it static — the rays still rotate, only the speckle stops flickering.
+    vec2 p = mod(fragPx, 1024.0);
     vec2 q = rot30() * p;
     float n = 0.0;
     n += 0.40 * hash21(q);
