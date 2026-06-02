@@ -10,6 +10,11 @@ import {
   maskFor,
 } from "@/components/hero/shaderConfig";
 
+// The hero now uses clean CSS conic god-rays (.hl-rays) instead of the WebGL
+// burst, which rendered organic/irregular beams. Set to true to bring the
+// shader back (all of its code below is kept intact).
+const USE_SHADER = false;
+
 /**
  * HeroPrismatic — Option B, hardened and config-driven.
  *
@@ -66,11 +71,13 @@ export function HeroPrismatic({
       className="relative isolate flex min-h-[100svh] w-full items-center justify-center overflow-hidden pt-[120px]"
       aria-label="Solarious hero"
     >
-      {/* Light base = SSR default AND the reduced-motion / no-WebGL fallback. */}
-      {/* Clean light only — the grain/noise overlay that dirtied the beams was
-          removed per brief §2.2 (B1). Base wash + halo, nothing over the rays. */}
+      {/* Light system: base wash → clean conic god-rays → warm sun halo.
+          The CSS god-rays (.hl-rays) are evenly spaced, static and grain-free —
+          they replace the WebGL burst, which rendered organic/irregular rays the
+          client found "ugly". Flip USE_SHADER to bring the burst back. */}
       <div className="hl-stage -z-20" aria-hidden>
         <div className="hl-base" />
+        <div className="hl-rays" />
         <div className="hl-halo" />
       </div>
 
@@ -82,7 +89,7 @@ export function HeroPrismatic({
         rays. Do not remove the mask or change the blend mode without
         re-verifying in light mode (see git history e6c379d / 540686c).
       */}
-      {showShader && (
+      {showShader && USE_SHADER && (
         <div
           aria-hidden
           className="absolute inset-0 -z-10"

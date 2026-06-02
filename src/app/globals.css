@@ -667,6 +667,45 @@ p,
   filter: blur(10px);
 }
 
+/* Clean radial god-rays. Evenly spaced, soft, warm light shafts fanning from a
+   point just above the headline. A static repeating-conic-gradient — perfectly
+   regular (no interference blotches), no grain, no flicker. Two layers (a finer
+   and a wider set) give depth without looking mechanical. A radial mask keeps
+   the rays bright near the sun and fades them out before the headline. */
+.hl-rays {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-conic-gradient(
+      from 0deg at 50% -3%,
+      rgba(255, 236, 200, 0) 0deg,
+      rgba(255, 236, 200, 0.5) 0.7deg,
+      rgba(255, 236, 200, 0) 4.6deg
+    ),
+    repeating-conic-gradient(
+      from 1.6deg at 50% -3%,
+      rgba(247, 178, 90, 0) 0deg,
+      rgba(247, 178, 90, 0.28) 1.4deg,
+      rgba(247, 178, 90, 0) 9.2deg
+    );
+  -webkit-mask-image: radial-gradient(
+    125% 80% at 50% -3%,
+    #000 4%,
+    rgba(0, 0, 0, 0.9) 22%,
+    rgba(0, 0, 0, 0.35) 44%,
+    transparent 62%
+  );
+  mask-image: radial-gradient(
+    125% 80% at 50% -3%,
+    #000 4%,
+    rgba(0, 0, 0, 0.9) 22%,
+    rgba(0, 0, 0, 0.35) 44%,
+    transparent 62%
+  );
+  filter: blur(1.3px);
+}
+
 @keyframes hl-drift {
   0%,
   100% {
