@@ -115,7 +115,10 @@ void main(){
     vec3 dir = rayDir(frag, uResolution, uOffset, 1.0);
     float marchT = 0.0;
     vec3 col = vec3(0.0);
-    float n = layeredNoise(frag);
+    // B1: use the MEAN of layeredNoise (~0.5) instead of per-pixel noise so the
+    // march step stays the same average size (beam shape preserved) but the
+    // dirty per-pixel speckle on the rays is gone — clean beams, same shape.
+    float n = 0.5;
     vec4 c = cos(t * 0.2 + vec4(0.0, 33.0, 11.0, 0.0));
     mat2 M2 = mat2(c.x, c.y, c.z, c.w);
     float amp = clamp(uDistort, 0.0, 50.0) * 0.15;
@@ -323,11 +326,11 @@ const PrismaticBurst = ({
         uDistort: { value: 0 },
         uOffset: { value: [0, 0] as [number, number] },
         uGradient: { value: gradientTex },
-        // Grain removed (brief §2.2 / B1): the rays carried a noisy/speckled
-        // texture from this shader-internal noise term. Zeroed so the beams
-        // render clean — shape/color/opacity/position are untouched (those come
-        // from rayPattern, rayCount, the gradient, intensity and offset).
-        uNoiseAmount: { value: 0 },
+        // Kept at original magnitude so the ray-march step size (and thus beam
+        // shape) is unchanged. The grain is removed in the fragment shader by
+        // feeding the *mean* of the noise into the march instead of per-pixel
+        // noise — see `float n` below (brief §2.2 / B1).
+        uNoiseAmount: { value: 0.8 },
         uRayCount: { value: 0 },
       },
     });
