@@ -12,9 +12,8 @@ const PROOF_CHIPS = [
 ];
 
 /**
- * HeroContent — the foreground shared by both hero treatments
- * (HeroCss / HeroPrismatic). Keeping it identical is what makes the
- * background comparison fair. No background layers live here.
+ * HeroContent — the hero foreground (headline, subcopy, CTAs, proof chips).
+ * No background layers live here; HeroPrismatic owns the light behind it.
  */
 export function HeroContent() {
   return (
