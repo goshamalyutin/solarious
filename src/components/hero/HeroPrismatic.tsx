@@ -17,7 +17,7 @@ import {
  * Both sit over the CSS base wash + warm halo; the .hl-grain overlay was
  * removed per brief §2.2 (B1).
  */
-const HERO_LIGHT: "prismatic" | "aurora" = "aurora";
+const HERO_LIGHT: "prismatic" | "aurora" = "prismatic";
 
 export function HeroPrismatic({
   config = DEFAULT_SHADER_CONFIG,

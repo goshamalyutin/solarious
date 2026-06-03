@@ -58,7 +58,9 @@ float hash21(vec2 p){
 mat2 rot30(){ return mat2(0.8, -0.5, 0.5, 0.8); }
 
 float layeredNoise(vec2 fragPx){
-    vec2 p = mod(fragPx + vec2(uTime * 30.0, -uTime * 21.0), 1024.0);
+    // Calmer grain: the original scrolled at uTime*30 (fast crackle). Slowed
+    // right down so the grain drifts gently instead of flickering.
+    vec2 p = mod(fragPx + vec2(uTime * 3.5, -uTime * 2.5), 1024.0);
     vec2 q = rot30() * p;
     float n = 0.0;
     n += 0.40 * hash21(q);
@@ -323,7 +325,7 @@ const PrismaticBurst = ({
         uDistort: { value: 0 },
         uOffset: { value: [0, 0] as [number, number] },
         uGradient: { value: gradientTex },
-        uNoiseAmount: { value: 0.8 },
+        uNoiseAmount: { value: 0.42 }, // cleaner: ~half the grain amplitude
         uRayCount: { value: 0 },
       },
     });

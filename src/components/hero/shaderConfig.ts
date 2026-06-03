@@ -72,9 +72,9 @@ export const PRESETS: Record<string, ShaderConfig> = {
   // brand-correct warm-white -> amber -> orange "flare" ramp.
   Dawn: {
     animationType: "rotate3d",
-    intensity: 2.55,
-    speed: 0.32,
-    distort: 0.34,
+    intensity: 2.4,
+    speed: 0.09, // calmer: slow, gentle rotation
+    distort: 0.16, // cleaner rays, a little soft bend so motion stays gentle
     rayCount: 19,
     offsetY: 90,
     ramp: "ember",
