@@ -18,7 +18,7 @@ const PROOF_CHIPS = [
  */
 export function HeroContent() {
   return (
-    <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-col items-center px-6 pb-10 text-center sm:px-8 md:pb-14">
+    <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center px-6 pb-10 text-center sm:px-8 md:pb-14">
       <HeroHeadline />
 
       <p className="reveal reveal-2 mt-7 max-w-xl text-[clamp(16px,1.4vw,19px)] leading-[1.55] text-ink-muted">

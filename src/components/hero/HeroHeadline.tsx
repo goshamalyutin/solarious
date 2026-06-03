@@ -62,13 +62,22 @@ export function HeroHeadline() {
     </span>
   );
 
+  // fontSize is set inline, NOT via a `text-[clamp()]` utility: globals.css has an
+  // UNLAYERED `h1 { font-size: clamp(44px,5.5vw,66px) }`, and unlayered CSS beats
+  // Tailwind's layered utilities — so a className size on this <h1> is silently
+  // ignored. Inline style wins cleanly (no !important). Sized so the longest line
+  // ("for verified renewable production.") stays on ONE line in the max-w-5xl
+  // column at desktop, giving a tidy 2-line headline instead of orphaned words.
   return (
     <motion.h1
       variants={container}
       initial="hidden"
       animate="show"
-      className="mt-2 font-semibold leading-[1.04] text-[clamp(34px,5vw,60px)]"
-      style={{ letterSpacing: "var(--display-track)" }}
+      className="mt-2 text-balance font-semibold leading-[1.05]"
+      style={{
+        letterSpacing: "var(--display-track)",
+        fontSize: "clamp(31px, 4.4vw, 56px)",
+      }}
     >
       {renderLine(LINE_ONE, "Proof-of-Energy")}
       {renderLine(LINE_TWO)}
