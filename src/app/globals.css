@@ -693,11 +693,11 @@ p,
     );
   background-size:
     200% 220%,
-    260% 200%;
-  filter: blur(26px) saturate(112%);
+    240% 200%;
+  filter: blur(14px) saturate(118%);
   mix-blend-mode: multiply;
-  opacity: 0.62;
-  animation: aurora 52s linear infinite;
+  opacity: 0.72;
+  animation: aurora 40s linear infinite;
   -webkit-mask-image: radial-gradient(
     ellipse 130% 78% at 50% -6%,
     #000 14%,
