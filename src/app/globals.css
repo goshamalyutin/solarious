@@ -667,14 +667,68 @@ p,
   filter: blur(10px);
 }
 
-/* Fine warm grain to kill radial banding (static, very subtle). */
-.hl-grain {
+/* ── Warm aurora (optional hero light) ──────────────────────────────
+   Flowing solar-light bands, adapted from the Aceternity Aurora effect to the
+   brand palette. Dynamic via a CSS background-position animation, but clean —
+   smooth heavily-blurred gradients, no grain. multiply blend warms the pearl. */
+.hl-aurora {
   position: absolute;
-  inset: 0;
-  opacity: 0.4;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 0.85  0 0 0 0 0.55  0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-  background-size: 200px 200px;
+  inset: -25% 0 0 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      100deg,
+      transparent 0%,
+      rgba(255, 216, 138, 0) 6%,
+      rgba(247, 150, 40, 0.42) 10%,
+      rgba(255, 216, 138, 0) 15%,
+      transparent 20%
+    ),
+    repeating-linear-gradient(
+      118deg,
+      rgba(255, 184, 0, 0.32) 0%,
+      rgba(240, 117, 1, 0.36) 26%,
+      rgba(255, 202, 120, 0.3) 52%,
+      rgba(238, 140, 40, 0.32) 78%
+    );
+  background-size:
+    200% 220%,
+    240% 200%;
+  filter: blur(14px) saturate(118%);
+  mix-blend-mode: multiply;
+  opacity: 0.72;
+  animation: aurora 40s linear infinite;
+  -webkit-mask-image: radial-gradient(
+    ellipse 130% 78% at 50% -6%,
+    #000 14%,
+    rgba(0, 0, 0, 0.55) 42%,
+    transparent 66%
+  );
+  mask-image: radial-gradient(
+    ellipse 130% 78% at 50% -6%,
+    #000 14%,
+    rgba(0, 0, 0, 0.55) 42%,
+    transparent 66%
+  );
+}
+
+@keyframes aurora {
+  from {
+    background-position:
+      0% 50%,
+      0% 50%;
+  }
+  to {
+    background-position:
+      200% 50%,
+      260% 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hl-aurora {
+    animation: none;
+  }
 }
 
 @keyframes hl-drift {

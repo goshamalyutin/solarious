@@ -1,5 +1,6 @@
 "use client";
 
+import { Fragment } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
 /**
@@ -11,11 +12,16 @@ import { motion, useReducedMotion } from "framer-motion";
  * get the final state immediately (no transform, no blur).
  *
  * The headline is hard-coded as two lines so we control the line break and
- * the single orange word ("energy-backed") per the brand rule.
+ * the single orange word ("Proof-of-Energy") per the brand rule.
+ *
+ * Inter-word spacing is rendered as a sibling text node between the inline-block
+ * word spans. A trailing space *inside* an inline-block collapses (that broke
+ * "for verified renewable" -> "forverifiedrenewable"), and an &nbsp; would stop
+ * the line wrapping on mobile. A sibling " " renders reliably and still wraps.
  */
 
-const LINE_ONE = ["The", "energy-backed"];
-const LINE_TWO = ["blockchain."];
+const LINE_ONE = ["The", "Proof-of-Energy", "Layer-1"];
+const LINE_TWO = ["for", "verified", "renewable", "production."];
 
 export function HeroHeadline() {
   const reduce = useReducedMotion();
@@ -39,39 +45,42 @@ export function HeroHeadline() {
     },
   };
 
+  const renderLine = (words: string[], accent?: string) => (
+    <span className="block">
+      {words.map((w, i) => (
+        <Fragment key={w}>
+          <motion.span
+            variants={word}
+            className={`inline-block${w === accent ? " orange-word" : ""}`}
+            style={{ willChange: "transform, filter, opacity" }}
+          >
+            {w}
+          </motion.span>
+          {i < words.length - 1 ? " " : null}
+        </Fragment>
+      ))}
+    </span>
+  );
+
+  // fontSize is set inline, NOT via a `text-[clamp()]` utility: globals.css has an
+  // UNLAYERED `h1 { font-size: clamp(44px,5.5vw,66px) }`, and unlayered CSS beats
+  // Tailwind's layered utilities — so a className size on this <h1> is silently
+  // ignored. Inline style wins cleanly (no !important). Sized so the longest line
+  // ("for verified renewable production.") stays on ONE line in the max-w-5xl
+  // column at desktop, giving a tidy 2-line headline instead of orphaned words.
   return (
     <motion.h1
       variants={container}
       initial="hidden"
       animate="show"
-      className="mt-7 text-balance font-semibold leading-[1.0] text-[clamp(42px,6.6vw,80px)]"
-      style={{ letterSpacing: "var(--display-track)" }}
+      className="mt-2 text-balance font-semibold leading-[1.05]"
+      style={{
+        letterSpacing: "var(--display-track)",
+        fontSize: "clamp(31px, 4.4vw, 56px)",
+      }}
     >
-      <span className="block">
-        {LINE_ONE.map((w) => (
-          <motion.span
-            key={w}
-            variants={word}
-            className={`inline-block ${w === "energy-backed" ? "orange-word" : ""}`}
-            style={{ willChange: "transform, filter, opacity" }}
-          >
-            {w}
-            {" "}
-          </motion.span>
-        ))}
-      </span>
-      <span className="block">
-        {LINE_TWO.map((w) => (
-          <motion.span
-            key={w}
-            variants={word}
-            className="inline-block"
-            style={{ willChange: "transform, filter, opacity" }}
-          >
-            {w}
-          </motion.span>
-        ))}
-      </span>
+      {renderLine(LINE_ONE, "Proof-of-Energy")}
+      {renderLine(LINE_TWO)}
     </motion.h1>
   );
 }

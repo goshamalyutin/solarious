@@ -62,13 +62,15 @@ const clashDisplay = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Solarious — The energy-backed blockchain",
+  title:
+    "Solarious — Proof-of-Energy Layer-1 for Verified Renewable Production",
   description:
-    "Solar production is measured, verified, and written on-chain. Every $SOLAR traces back to a real kilowatt.",
+    "Solarius builds blockchain infrastructure to verify, record and monetize renewable energy production through Proof-of-Energy, validator infrastructure and SREC / REC settlement rails.",
   metadataBase: new URL("https://solarius.vercel.app"),
   openGraph: {
-    title: "Solarious — The energy-backed blockchain",
-    description: "A Layer-1 anchored to real energy. TGE June 2026.",
+    title: "Solarious — Verified Renewable Production On-Chain",
+    description:
+      "The Proof-of-Energy Layer-1 connecting measured solar output with network verification, wallet access and environmental-commodity settlement.",
     type: "website",
   },
 };
@@ -86,6 +88,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
       className={`${geist.variable} ${geistMono.variable} ${clashDisplay.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-pearl font-sans text-ink">

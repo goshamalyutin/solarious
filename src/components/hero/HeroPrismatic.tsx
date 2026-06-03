@@ -11,17 +11,14 @@ import {
 } from "@/components/hero/shaderConfig";
 
 /**
- * HeroPrismatic — Option B, hardened and config-driven.
- *
- * Same warm-pearl light base as Option C, used as the SSR default and as the
- * reduced-motion / no-WebGL fallback. The PrismaticBurst shader only mounts
- * client-side when (a) a WebGL context exists and (b) the user has NOT asked
- * for reduced motion, so the render loop never starts in those cases.
- *
- * The exact look is supplied by a ShaderConfig (see shaderConfig.ts). The
- * hero-lab tuner writes one live; the winning config is passed here on the
- * real landing page, so tuning and production never drift.
+ * Hero light source. Flip this to switch the hero atmosphere:
+ *   "prismatic" — the dynamic WebGL PrismaticBurst shader (animated god-rays).
+ *   "aurora"    — the flowing CSS aurora (.hl-aurora), dynamic + grain-free.
+ * Both sit over the CSS base wash + warm halo; the .hl-grain overlay was
+ * removed per brief §2.2 (B1).
  */
+const HERO_LIGHT: "prismatic" | "aurora" = "prismatic";
+
 export function HeroPrismatic({
   config = DEFAULT_SHADER_CONFIG,
 }: {
@@ -31,9 +28,9 @@ export function HeroPrismatic({
   const [small, setSmall] = useState(false);
 
   useEffect(() => {
+    if (HERO_LIGHT !== "prismatic") return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
     const mq = window.matchMedia("(max-width: 720px)");
-
     const hasWebGL = (() => {
       try {
         const c = document.createElement("canvas");
@@ -42,12 +39,10 @@ export function HeroPrismatic({
         return false;
       }
     })();
-
     const decide = () => {
       setShowShader(hasWebGL && !reduce.matches);
       setSmall(mq.matches);
     };
-
     decide();
     reduce.addEventListener("change", decide);
     mq.addEventListener("change", decide);
@@ -57,7 +52,6 @@ export function HeroPrismatic({
     };
   }, []);
 
-  // Lower fill-rate on phones: fewer angular rays.
   const rayCount = small ? Math.min(config.rayCount, 18) : config.rayCount;
 
   return (
@@ -66,22 +60,13 @@ export function HeroPrismatic({
       className="relative isolate flex min-h-[100svh] w-full items-center justify-center overflow-hidden pt-[120px]"
       aria-label="Solarious hero"
     >
-      {/* Light base = SSR default AND the reduced-motion / no-WebGL fallback. */}
       <div className="hl-stage -z-20" aria-hidden>
         <div className="hl-base" />
+        {HERO_LIGHT === "aurora" && <div className="hl-aurora" />}
         <div className="hl-halo" />
-        <div className="hl-grain" />
       </div>
 
-      {/*
-        Shader layer. PrismaticBurst outputs PREMULTIPLIED alpha (alpha =
-        luminance), so dark ray-march regions are transparent. mixBlendMode
-        "multiply" + the radial mask are REQUIRED for light mode: they let the
-        warm pearl page show through the dark regions and keep only the amber
-        rays. Do not remove the mask or change the blend mode without
-        re-verifying in light mode (see git history e6c379d / 540686c).
-      */}
-      {showShader && (
+      {HERO_LIGHT === "prismatic" && showShader && (
         <div
           aria-hidden
           className="absolute inset-0 -z-10"

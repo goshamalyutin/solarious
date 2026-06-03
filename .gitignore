@@ -13,6 +13,9 @@
 # testing
 /coverage
 
+# local lead capture log (see src/app/api/leads/route.ts)
+/.data/
+
 # next.js
 /.next/
 /out/

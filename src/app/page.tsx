@@ -1,13 +1,16 @@
-import { Logo } from "@/components/Logo";
+import Link from "next/link";
 import { Nav } from "@/components/Nav";
 import { HeroPrismatic } from "@/components/hero/HeroPrismatic";
 import { NetworkExpand } from "@/components/NetworkExpand";
-import { WhitelistForm } from "@/components/WhitelistForm";
+import { SiteFooter } from "@/components/SiteFooter";
+import { ContactBlock } from "@/components/ContactBlock";
 import { Reveal } from "@/components/Reveal";
 import { SectionHead } from "@/components/SectionHead";
-import { IndexRow } from "@/components/IndexRow";
 import { CountUp } from "@/components/CountUp";
+import { IconBadge } from "@/components/IconBadge";
+import { ArrowRight } from "@/components/icons";
 import { getDeviceImageUrl } from "@/lib/assets";
+import { cn } from "@/lib/utils";
 
 export default function Home() {
   return (
@@ -16,49 +19,74 @@ export default function Home() {
       <HeroPrismatic />
       <TrustStrip />
       <NetworkExpand />
+      <MarketProblem />
       <About />
-      <Metrics />
       <ProofOfEnergy />
+      <EvidenceMetrics />
       <Device />
-      <Products />
+      <Ecosystem />
       <WhyQuote />
       <Security />
-      <Token />
+      <SolarEconomics />
       <Roadmap />
       <FinalCTA />
-      <Footer />
+      <SiteFooter />
     </main>
   );
 }
 
-/* ───────────────────────────────────────────────────── TRUST STRIP */
+/* ─────────────────────────────────────────────────── SECTION PRIMITIVE
+   One rhythm for every top-level section: py-14 / md:py-20, one container
+   width (max-w-[1200px], px-5 / md:px-8). The single source of outer spacing
+   (brief Part 1). */
+
+function Section({
+  id,
+  label,
+  alt,
+  children,
+}: {
+  id?: string;
+  label: string;
+  alt?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <section
+      id={id}
+      aria-label={label}
+      className={cn("relative w-full py-14 md:py-20", alt && "bg-pearl-alt")}
+    >
+      <div className="mx-auto max-w-[1200px] px-5 md:px-8">{children}</div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────────── TRUST STRIP (§2.3) */
 
 function TrustStrip() {
   const phrases = [
+    "Renewable-energy verification",
     "Proof-of-Energy",
-    "200-node consensus",
-    "zk verification",
-    "DC-only hardware",
-    "ATECC608B signing",
-    "Real kilowatt-hours",
+    "Solar Miner measurement",
+    "Validator infrastructure",
+    "Network evidence",
+    "SREC / REC rails",
   ];
-  // Duplicate the list so the -50% loop is seamless.
+  // Duplicate the list so the -50% loop is seamless and no partial word freezes.
   const loop = [...phrases, ...phrases];
 
   return (
     <section
-      className="relative w-full overflow-hidden border-y border-[var(--hairline)] bg-pearl-alt py-9"
+      className="relative w-full overflow-hidden border-y border-[var(--hairline)] bg-pearl-alt py-5"
       aria-label="Built on verifiable infrastructure"
     >
-      <div className="mx-auto mb-7 max-w-[1280px] px-6 sm:px-8">
-        <p className="kicker">Built on verifiable infrastructure</p>
-      </div>
       <div className="marquee-mask">
         <div className="marquee">
           {loop.map((p, i) => (
             <span
               key={i}
-              className="flex shrink-0 items-center gap-4 px-7 text-[clamp(15px,1.5vw,18px)] text-ink-muted"
+              className="flex shrink-0 items-center gap-4 px-7 text-[clamp(14px,1.4vw,17px)] text-ink-muted"
             >
               <span
                 aria-hidden
@@ -73,196 +101,244 @@ function TrustStrip() {
   );
 }
 
-/* ───────────────────────────────────────────────────── ABOUT (statement) */
+/* ─────────────────────────────────────────────────── MARKET PROBLEM (§2.4) */
+
+function MarketProblem() {
+  const cards = [
+    {
+      t: "Delayed verification",
+      d: "Renewable production is often certified after the fact, through slow and fragmented processes.",
+    },
+    {
+      t: "Fragmented REC infrastructure",
+      d: "Registries, brokers, utilities and compliance programs create friction for smaller producers.",
+    },
+    {
+      t: "Under-monetized producers",
+      d: "Many solar producers create environmental value without a simple path to programmable economic participation.",
+    },
+  ];
+
+  return (
+    <Section id="problem" label="The market gap" alt>
+      <SectionHead
+        kicker="The market gap"
+        index="01"
+        lead="Small and distributed solar producers often face delayed audits, registry friction, manual reconciliation and broker-dependent REC monetization. Solarius is building infrastructure to make renewable-energy production easier to verify, record and connect to programmable markets."
+      >
+        Renewable energy creates value that is still hard to verify and{" "}
+        <span className="orange-word">monetize.</span>
+      </SectionHead>
+
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        {cards.map((c, i) => (
+          <Reveal
+            key={c.t}
+            delay={i * 80}
+            className="rounded-[var(--r-lg)] border border-[var(--hairline)] bg-white/40 p-6"
+          >
+            <h3 className="text-[18px] tracking-[-0.015em]">{c.t}</h3>
+            <p className="body mt-3 text-[14.5px]">{c.d}</p>
+          </Reveal>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+/* ─────────────────────────────────────────────────── WHAT IS SOLARIUS (§2.5) */
 
 function About() {
   const flow = [
     "Solar production",
     "Proof-of-Energy",
     "Validators",
-    "$SOLAR economy",
-    "Tokenized commodities",
+    "SOLAR economy",
+    "SREC / REC settlement",
   ];
 
   return (
-    <section
-      id="about"
-      className="relative w-full py-[var(--section-y)]"
-      aria-label="What is Solarious"
-    >
-      <div className="mx-auto max-w-[1280px] px-6 sm:px-8">
-        <SectionHead kicker="What is Solarious" index="01">
-          A Layer-1 anchored to{" "}
-          <span className="orange-word">real energy.</span>
-        </SectionHead>
+    <Section id="about" label="What is Solarius">
+      <SectionHead kicker="What is Solarius" index="02">
+        A Layer-1 anchored to{" "}
+        <span className="orange-word">measured energy.</span>
+      </SectionHead>
 
-        <Reveal delay={80}>
-          <p className="mt-9 max-w-3xl text-[clamp(19px,2vw,26px)] leading-[1.45] tracking-[-0.01em] text-ink">
-            Solarious is a proprietary Layer-1. Measured and validated solar
-            output becomes a verifiable contribution to the network. The chain
-            is tied to physical energy production, not to speculation.
-          </p>
-        </Reveal>
+      <Reveal>
+        <p className="max-w-3xl text-[clamp(18px,1.9vw,24px)] leading-[1.45] tracking-[-0.01em] text-ink">
+          Solarius is a proprietary Layer-1 blockchain built around
+          Proof-of-Energy. Measured solar production becomes verifiable network
+          activity, connecting real-world renewable output with validators,
+          wallet access, SOLAR utility and environmental-commodity settlement.
+        </p>
+      </Reveal>
 
-        {/* Flow chain — ruled, monospace, no boxes. */}
-        <Reveal delay={160}>
-          <ol className="mt-14 flex flex-wrap items-center gap-x-3 gap-y-3 border-t border-[var(--hairline)] pt-8">
-            {flow.map((f, i) => (
-              <li key={f} className="flex items-center gap-3">
-                <span className="mono text-[12px] tabular-nums text-ink-faint">
-                  {String(i + 1).padStart(2, "0")}
+      {/* Flow chain — ruled, monospace, no boxes. */}
+      <Reveal delay={120}>
+        <ol className="mt-10 flex flex-wrap items-center gap-x-3 gap-y-3 border-t border-[var(--hairline)] pt-8">
+          {flow.map((f, i) => (
+            <li key={f} className="flex items-center gap-3">
+              <span className="mono text-[12px] tabular-nums text-ink-faint">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span className="text-[14px] text-ink sm:text-[15px]">{f}</span>
+              {i < flow.length - 1 && (
+                <span aria-hidden className="px-1 text-orange/50">
+                  →
                 </span>
-                <span className="text-[14px] text-ink sm:text-[15px]">{f}</span>
-                {i < flow.length - 1 && (
-                  <span aria-hidden className="px-1 text-orange/50">
-                    →
-                  </span>
-                )}
-              </li>
-            ))}
-          </ol>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-/* ───────────────────────────────────────────────────── METRICS */
-
-function Metrics() {
-  const items = [
-    {
-      value: 1,
-      decimals: 0,
-      unit: "B",
-      label: "$SOLAR fixed supply. No future issuance beyond the cap.",
-    },
-    {
-      value: 200,
-      decimals: 0,
-      unit: "",
-      label: "Validator nodes at consensus. 50 are Alpha Nodes, hard-capped.",
-    },
-    {
-      value: 1.8,
-      decimals: 1,
-      unit: "M",
-      label: "CryptoCat users moving into the ecosystem.",
-    },
-    {
-      value: 100,
-      decimals: 0,
-      unit: "%",
-      label: "Energy-backed issuance. Every $SOLAR maps to a kilowatt.",
-    },
-  ];
-
-  return (
-    <section
-      id="metrics"
-      className="relative w-full bg-pearl-alt py-[var(--section-y)]"
-      aria-label="Network metrics"
-    >
-      <div className="mx-auto max-w-[1280px] px-6 sm:px-8">
-        <SectionHead kicker="By the numbers" index="02">
-          A network sized for{" "}
-          <span className="orange-word">real production.</span>
-        </SectionHead>
-
-        <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-          {items.map((m, i) => (
-            <Reveal
-              key={i}
-              delay={i * 90}
-              className="border-t border-[var(--hairline)] py-8 pr-6 sm:py-10"
-            >
-              <div className="flex items-baseline tracking-[-0.04em]">
-                <span className="text-[clamp(52px,6vw,80px)] font-semibold leading-none text-ink">
-                  <CountUp value={m.value} decimals={m.decimals} />
-                </span>
-                {m.unit && (
-                  <span className="ml-0.5 text-[clamp(32px,3.6vw,48px)] font-semibold leading-none text-orange">
-                    {m.unit}
-                  </span>
-                )}
-              </div>
-              <p className="body mt-5 max-w-[24ch] text-[14.5px]">{m.label}</p>
-            </Reveal>
+              )}
+            </li>
           ))}
-        </div>
-      </div>
-    </section>
+        </ol>
+      </Reveal>
+    </Section>
   );
 }
 
-/* ───────────────────────────────────────────────────── PROOF OF ENERGY */
+/* ─────────────────────────────────────────────────── PROOF OF ENERGY (§2.6) */
 
 function ProofOfEnergy() {
   const steps = [
     {
       t: "Solar energy is produced.",
-      d: "A solar panel generates electricity. The Solar Miner connects to the panel and measures real output in kilowatt-hours.",
+      d: "A solar asset generates electricity and creates measurable production data.",
     },
     {
-      t: "A proof is created.",
-      d: "The device signs every kilowatt-hour inside a secure chip. The key is generated on the device and never leaves it.",
+      t: "Production is measured.",
+      d: "Solar Miner or connected infrastructure captures output data from the energy source.",
     },
     {
-      t: "The proof goes on-chain.",
-      d: "The signed proof reaches the 200-node validator network. Validators verify it. $SOLAR is issued in proportion to real output.",
+      t: "A proof record is created.",
+      d: "Production data is packaged for verification through the Solarius network.",
+    },
+    {
+      t: "Validators check the proof.",
+      d: "The network verifies accepted records before they can affect network activity.",
+    },
+    {
+      t: "Energy data becomes useful.",
+      d: "Verified production can support SOLAR utility, network participation and SREC / REC settlement rails.",
     },
   ];
 
   return (
-    <section
-      id="poe"
-      className="relative w-full py-[var(--section-y)]"
-      aria-label="How Proof of Energy works"
-    >
-      <div className="relative mx-auto max-w-[1280px] px-6 sm:px-8">
-        <SectionHead
-          kicker="Proof of Energy"
-          index="03"
-          lead="Three stages, no middlemen, no claims. Hardware does the measuring. The network does the verifying."
-        >
-          How <span className="orange-word">Proof of Energy</span> works.
-        </SectionHead>
+    <Section id="proof" label="Proof-of-Energy" alt>
+      <SectionHead
+        kicker="Proof-of-Energy"
+        index="03"
+        lead="Proof-of-Energy starts with real solar output. Solar Miner captures production data, the network verifies the proof, and accepted records support SOLAR utility, validator participation and energy-market settlement."
+      >
+        Measured production becomes{" "}
+        <span className="orange-word">verifiable network activity.</span>
+      </SectionHead>
 
-        <div className="mt-16">
-          {steps.map((s, i) => (
-            <Reveal
-              key={s.t}
-              delay={i * 90}
-              className="grid grid-cols-[auto_1fr] gap-x-7 gap-y-2 border-t border-[var(--hairline)] py-9 last:border-b sm:grid-cols-[7rem_minmax(0,1fr)] sm:gap-x-12"
-            >
-              <span className="text-[clamp(40px,5vw,64px)] font-semibold leading-none tracking-[-0.04em] text-orange">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <div className="max-w-2xl self-center">
-                <h3 className="text-[clamp(20px,2vw,26px)] tracking-[-0.02em]">
-                  {s.t}
-                </h3>
-                <p className="body mt-3">{s.d}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
+      <div>
+        {steps.map((s, i) => (
+          <Reveal
+            key={s.t}
+            delay={i * 70}
+            className="grid grid-cols-[auto_1fr] gap-x-7 gap-y-2 border-t border-[var(--hairline)] py-7 last:border-b sm:grid-cols-[6rem_minmax(0,1fr)] sm:gap-x-12"
+          >
+            <span className="text-[clamp(34px,4.4vw,56px)] font-semibold leading-none tracking-[-0.04em] text-orange">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <div className="max-w-2xl self-center">
+              <h3 className="text-[clamp(19px,1.9vw,24px)] tracking-[-0.02em]">
+                {s.t}
+              </h3>
+              <p className="body mt-2">{s.d}</p>
+            </div>
+          </Reveal>
+        ))}
       </div>
-    </section>
+    </Section>
   );
 }
 
-/* ───────────────────────────────────────────────────── DEVICE (product spotlight) */
+/* ─────────────────────────────────────────────────── EVIDENCE METRICS (§2.7) */
+
+function EvidenceMetrics() {
+  const items = [
+    {
+      value: 204358,
+      decimals: 0,
+      group: true,
+      label: "Blocks minted",
+      caption: "Network activity already underway.",
+    },
+    {
+      value: 4.0,
+      decimals: 1,
+      suffix: "s",
+      label: "Average block time",
+      caption: "Fast verification rhythm.",
+    },
+    {
+      value: 34,
+      decimals: 0,
+      label: "Verdex wallet addresses",
+      caption: "Wallet access already forming.",
+    },
+    {
+      value: 6,
+      decimals: 0,
+      label: "SOLAR producer activations",
+      caption: "Producer-side proof already started.",
+    },
+    {
+      value: 1871286,
+      decimals: 0,
+      group: true,
+      label: "CryptoCat users",
+      caption: "Community reach ready for activation.",
+    },
+  ];
+
+  return (
+    <Section id="evidence" label="Current evidence">
+      <SectionHead
+        kicker="Current evidence"
+        index="04"
+        lead="Solarius already shows evidence across network activity, wallet access, producer activation and community reach. Together, these signals show an ecosystem moving from architecture into scale."
+      >
+        Network proof already <span className="orange-word">in motion.</span>
+      </SectionHead>
+
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-5 md:gap-5">
+        {items.map((m, i) => (
+          <Reveal
+            key={m.label}
+            delay={i * 70}
+            className="rounded-[var(--r-md)] border border-[var(--hairline)] bg-white/40 p-5"
+          >
+            <div className="text-[clamp(28px,3vw,40px)] font-semibold leading-none tracking-[-0.03em] text-ink">
+              <CountUp
+                value={m.value}
+                decimals={m.decimals}
+                group={m.group}
+                suffix={m.suffix}
+              />
+            </div>
+            <div className="mt-3 text-[13.5px] font-medium leading-snug text-ink">
+              {m.label}
+            </div>
+            <p className="caption mt-1.5 text-[12px]">{m.caption}</p>
+          </Reveal>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+/* ─────────────────────────────────────────────────── DEVICE (§2.8) */
 
 function Device() {
-  // What it does — the verification client's job, as ruled rows.
   const functions = [
     "Measures voltage, current and energy",
     "Signs energy proofs",
     "Controls mining load",
     "Sends verified data",
   ];
-  // Architecture constraints — what makes it DC-native.
   const architecture = [
     "DC-only architecture",
     "No 220V dependency",
@@ -270,21 +346,17 @@ function Device() {
   ];
 
   return (
-    <section
-      id="device"
-      className="relative w-full bg-pearl-alt py-[var(--section-y)]"
-      aria-label="The DC Energy Device"
-    >
-      <div className="mx-auto grid max-w-[1280px] grid-cols-1 gap-x-16 gap-y-12 px-6 sm:px-8 lg:grid-cols-2 lg:items-center">
-        {/* Render — transparent WebP floating on the pearl, with a single warm
-            ground glow. No card, no frame. */}
+    <Section id="device" label="The DC Energy Device" alt>
+      <div className="grid grid-cols-1 gap-x-16 gap-y-10 lg:grid-cols-2 lg:items-center">
+        {/* Render — grounded with a soft contact shadow so it sits on a surface
+            instead of floating in empty space (brief §2.8 / B5). */}
         <Reveal className="relative order-1">
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-x-[6%] bottom-[8%] top-[28%] -z-0"
+            className="pointer-events-none absolute inset-x-[8%] bottom-[6%] top-[26%] -z-0"
             style={{
               background:
-                "radial-gradient(60% 60% at 50% 55%, rgba(240,117,1,0.16) 0%, rgba(240,117,1,0) 70%)",
+                "radial-gradient(60% 60% at 50% 55%, rgba(240,117,1,0.14) 0%, rgba(240,117,1,0) 70%)",
               filter: "blur(8px)",
             }}
           />
@@ -297,6 +369,16 @@ function Device() {
             decoding="async"
             className="relative w-full"
           />
+          {/* Contact shadow — grounds the device on the surface. */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-[20%] bottom-[3%] -z-0 h-5 rounded-[50%]"
+            style={{
+              background:
+                "radial-gradient(50% 50% at 50% 50%, rgba(26,26,26,0.20) 0%, rgba(26,26,26,0) 72%)",
+              filter: "blur(7px)",
+            }}
+          />
         </Reveal>
 
         <div className="order-2">
@@ -306,41 +388,34 @@ function Device() {
           <SectionHead kicker="The device">
             Built for solar. <span className="orange-word">Not a miner.</span>
           </SectionHead>
-          <Reveal delay={80}>
-            <p className="lead mt-6">
+          <Reveal>
+            <p className="lead -mt-2">
               Not adapted from ASICs. It is an energy verification client.
             </p>
           </Reveal>
 
-          {/* Architecture constraints — mono tags, hairline-separated. */}
-          <Reveal delay={140}>
-            <ul className="mt-9 flex flex-wrap items-center gap-x-4 gap-y-2 text-[13px] text-ink">
-              {architecture.map((a, i) => (
-                <li key={a} className="flex items-center gap-4">
-                  {i > 0 && (
-                    <span
-                      aria-hidden
-                      className="h-3 w-px bg-[var(--hairline)]"
-                    />
-                  )}
-                  <span className="flex items-center gap-2">
-                    <span
-                      aria-hidden
-                      className="inline-block h-1.5 w-1.5 rounded-full bg-orange/70"
-                    />
-                    {a}
-                  </span>
-                </li>
+          {/* Architecture constraints — even grid of orange-dot labels, no orphan
+              dividers; one-per-line on mobile (brief §2.8). */}
+          <Reveal delay={100}>
+            <div className="mt-8 grid grid-cols-1 gap-x-6 gap-y-3 text-[13px] text-ink sm:grid-cols-3">
+              {architecture.map((a) => (
+                <span key={a} className="flex items-center gap-2">
+                  <span
+                    aria-hidden
+                    className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-orange/70"
+                  />
+                  {a}
+                </span>
               ))}
-            </ul>
+            </div>
           </Reveal>
 
           {/* What it does — ruled rows with mono indices. */}
-          <ol className="mt-10">
+          <ol className="mt-9">
             {functions.map((f, i) => (
               <Reveal
                 key={f}
-                delay={180 + i * 70}
+                delay={120 + i * 60}
                 className="flex items-center gap-5 border-t border-[var(--hairline)] py-4 last:border-b"
               >
                 <span className="mono text-[11px] tabular-nums text-ink-faint">
@@ -352,104 +427,103 @@ function Device() {
           </ol>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
 
-/* ───────────────────────────────────────────────────── PRODUCTS (index rows) */
+/* ─────────────────────────────────────────────────── ECOSYSTEM (§2.9) */
 
-function Products() {
-  const products = [
+function Ecosystem() {
+  const rows = [
+    {
+      t: "Proof-of-Energy L1",
+      d: "Protocol layer that turns measured renewable-energy production into verifiable network activity.",
+      icon: "cube-stack",
+      href: "#",
+    },
     {
       t: "Solar Miner",
-      d: "Proprietary hardware that plugs into your panel and measures real output on-chain.",
-      tag: "Hardware",
+      d: "Measurement device designed to connect real solar output to the Solarius network.",
+      icon: "miner",
+      href: "/miner",
     },
     {
-      t: "Validators & Alpha Nodes",
-      d: "Run the software, secure the network, finalize blocks, earn $SOLAR. Alpha Nodes are hard-capped at 50.",
-      tag: "Network",
+      t: "Validators / Alpha Validators",
+      d: "Participate in network verification and infrastructure operations.",
+      icon: "shield-check",
+      href: "#",
     },
     {
-      t: "Verdex",
-      d: "The Solarious wallet and access layer. Token access, claims, staking, miner console.",
-      tag: "Wallet",
+      t: "Verdex Wallet",
+      d: "Wallet and access layer for claims, staking and Solarious ecosystem activity.",
+      icon: "wallet",
+      href: "#",
     },
     {
-      t: "Mining Pool",
-      d: "Operational interface for performance, devices, and payouts. Built with EMCD.",
-      tag: "Operations",
+      t: "Mining Pool / Payout Infrastructure",
+      d: "Operational layer for accounts, devices, rewards and payout flows.",
+      icon: "mining-pool",
+      href: "#",
     },
     {
       t: "CryptoCat",
-      d: "The community layer with 1.8M users moving into the ecosystem.",
-      tag: "Community",
+      d: "Community education and onboarding layer with large user reach.",
+      icon: "cat",
+      href: "#",
     },
     {
-      t: "Tokenized RECs",
-      d: "The settlement layer for renewable energy certificates and carbon markets. Built with Zoniqx.",
-      tag: "Settlement",
+      t: "SREC / REC Layer",
+      d: "Environmental-commodity layer connecting verified renewable production with certificate and settlement rails.",
+      icon: "leaf",
+      href: "#",
     },
   ];
 
   return (
-    <section
-      id="products"
-      className="relative w-full bg-pearl-alt py-[var(--section-y)]"
-      aria-label="Solarious ecosystem"
-    >
-      <div className="relative mx-auto max-w-[1280px] px-6 sm:px-8">
-        <SectionHead
-          kicker="Ecosystem"
-          index="04"
-          lead="Hardware, validators, wallet, mining pool, community, and settlement. Every layer is a real product, shipping into one chain."
-        >
-          Six products. <span className="orange-word">One network.</span>
-        </SectionHead>
+    <Section id="ecosystem" label="Solarius ecosystem">
+      <SectionHead
+        kicker="Ecosystem"
+        index="05"
+        lead="Solarius is not a single product. It is an ecosystem of measurement, verification, wallet access, infrastructure participation and environmental-commodity settlement."
+      >
+        Connected layers, built around{" "}
+        <span className="orange-word">one network.</span>
+      </SectionHead>
 
-        <div className="mt-14">
-          {products.map((p, i) => (
-            <Reveal key={p.t} delay={i * 60}>
-              <IndexRow
-                index={String(i + 1).padStart(2, "0")}
-                title={p.t}
-                tag={p.tag}
-                description={p.d}
-              />
-            </Reveal>
-          ))}
-        </div>
+      <div>
+        {rows.map((r, i) => (
+          <Reveal key={r.t} delay={i * 50}>
+            <Link
+              href={r.href}
+              className="group flex items-start gap-5 border-t border-[var(--hairline)] py-6 transition-colors last:border-b hover:bg-[color-mix(in_srgb,var(--orange)_4%,transparent)]"
+            >
+              <IconBadge name={r.icon} />
+              <div className="min-w-0 flex-1">
+                <h3 className="text-[clamp(18px,1.8vw,22px)] tracking-[-0.02em] transition-colors group-hover:text-orange">
+                  {r.t}
+                </h3>
+                <p className="body mt-1.5 max-w-2xl text-[14.5px]">{r.d}</p>
+              </div>
+              <span className="mt-2 hidden text-ink-faint transition-all group-hover:translate-x-1 group-hover:text-orange sm:block">
+                <ArrowRight />
+              </span>
+            </Link>
+          </Reveal>
+        ))}
       </div>
-    </section>
+    </Section>
   );
 }
 
-/* ───────────────────────────────────────────────────── WHY (dark contrast beat) */
+/* ─────────────────────────────────────────────────── WHY (dark beat) */
 
 function WhyQuote() {
   return (
     <section
-      className="relative w-full overflow-hidden bg-midnight py-[clamp(120px,18vh,240px)] text-white"
+      className="relative w-full overflow-hidden bg-midnight py-14 text-white md:py-20"
       aria-label="Why energy"
     >
-      {/* Feather both edges into the pearl-alt of the neighbouring sections so
-          the dark beat floats instead of hard-seaming (matches the video). */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 z-10 h-28"
-        style={{
-          background:
-            "linear-gradient(to bottom, var(--pearl-alt), transparent)",
-        }}
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-28"
-        style={{
-          background: "linear-gradient(to top, var(--pearl-alt), transparent)",
-        }}
-      />
-      {/* faint amber floor glow, single light source, no second hue */}
+      {/* Faint amber floor glow — single warm light source, no second hue. */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2"
@@ -458,24 +532,26 @@ function WhyQuote() {
             "radial-gradient(60% 100% at 50% 100%, rgba(240,117,1,0.16) 0%, rgba(240,117,1,0) 70%)",
         }}
       />
-      <div className="relative mx-auto max-w-4xl px-6 sm:px-8">
-        <Reveal>
-          <p className="kicker" style={{ color: "var(--orange)" }}>
-            Why energy
-          </p>
-          <p className="mt-8 text-[clamp(28px,3.8vw,46px)] font-medium leading-[1.22] tracking-[-0.02em] text-white">
-            Every industry that scaled got a settlement layer. The internet had
-            TCP/IP. Finance had SWIFT.{" "}
-            <span className="text-white/45">Energy never had one.</span>{" "}
-            Solarious is that layer.
-          </p>
-        </Reveal>
+      <div className="relative mx-auto max-w-[1200px] px-5 md:px-8">
+        <div className="max-w-4xl">
+          <Reveal>
+            <p className="kicker" style={{ color: "var(--orange)" }}>
+              Why energy
+            </p>
+            <p className="mt-7 text-[clamp(26px,3.6vw,44px)] font-medium leading-[1.22] tracking-[-0.02em] text-white">
+              Every industry that scaled got a settlement layer. The internet
+              had TCP/IP. Finance had SWIFT.{" "}
+              <span className="text-white/45">Energy never had one.</span>{" "}
+              Solarious is that layer.
+            </p>
+          </Reveal>
+        </div>
       </div>
     </section>
   );
 }
 
-/* ───────────────────────────────────────────────────── SECURITY */
+/* ─────────────────────────────────────────────────── SECURITY (§2.10) */
 
 function Security() {
   const items = [
@@ -502,53 +578,46 @@ function Security() {
   ];
 
   return (
-    <section
-      id="security"
-      className="relative w-full bg-pearl-alt py-[var(--section-y)]"
-      aria-label="Security"
-    >
-      <div className="relative mx-auto max-w-[1280px] px-6 sm:px-8">
-        <SectionHead
-          kicker="Security"
-          index="05"
-          lead="You cannot fake a kilowatt. You have to produce one."
-        >
-          Secured by <span className="orange-word">reality.</span>
-        </SectionHead>
+    <Section id="security" label="Security" alt>
+      <SectionHead
+        kicker="Security"
+        index="06"
+        lead="You cannot fake a kilowatt. You have to produce one."
+      >
+        Secured by <span className="orange-word">reality.</span>
+      </SectionHead>
 
-        {/* Hairline-ruled rows, icon beside the heading. Rows over cards. */}
-        <div className="mt-14 grid grid-cols-1 gap-x-12 md:grid-cols-2">
-          {items.map((it, i) => (
-            <Reveal
-              key={it.t}
-              delay={(i % 2) * 90}
-              className="flex items-start gap-5 border-t border-[var(--hairline)] py-7"
-            >
-              <img
-                src={`/assets/icons/${it.icon}.svg`}
-                alt=""
-                aria-hidden
-                className="mt-0.5 h-6 w-6 shrink-0"
-              />
-              <div>
-                <h3 className="text-[18px] tracking-[-0.015em]">{it.t}</h3>
-                <p className="body mt-2 max-w-md text-[14.5px]">{it.d}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
+      {/* Fixed icon box, top-aligned to the heading, identical across all four. */}
+      <div className="grid grid-cols-1 gap-x-12 gap-y-2 md:grid-cols-2">
+        {items.map((it, i) => (
+          <Reveal
+            key={it.t}
+            delay={(i % 2) * 80}
+            className="flex items-start gap-4 border-t border-[var(--hairline)] py-7"
+          >
+            <IconBadge name={it.icon} />
+            <div>
+              <h3 className="text-[18px] tracking-[-0.015em]">{it.t}</h3>
+              <p className="body mt-2 max-w-md text-[14.5px]">{it.d}</p>
+            </div>
+          </Reveal>
+        ))}
       </div>
-    </section>
+    </Section>
   );
 }
 
-/* ───────────────────────────────────────────────────── TOKEN (donut) */
+/* ─────────────────────────────────────────────────── SOLAR ECONOMICS (§2.11) */
 
-function Token() {
-  // Warm solar spectrum, orange-anchored: gold -> orange -> ember -> copper ->
-  // brown -> espresso. Analogous hues (all in the warm family, so it stays on
-  // the single-accent story) but spread in hue AND lightness so every slice is
-  // clearly distinguishable — the old all-brown ramp blurred together.
+function SolarEconomics() {
+  const utility = [
+    "Network transaction fees",
+    "Validator participation",
+    "Wallet and claim activity",
+    "Ecosystem utility",
+    "Environmental-commodity settlement",
+  ];
+  // Allocation chart kept verbatim (15 / 85 split + 1B total supply, brief §2.11).
   const segments = [
     { name: "Ecosystem", pct: 34.0, color: "#F07501" },
     { name: "Validator rewards", pct: 25.5, color: "#FFB323" },
@@ -561,23 +630,36 @@ function Token() {
   let cumulative = 0;
 
   return (
-    <section
-      id="token"
-      className="relative w-full overflow-hidden py-[var(--section-y)]"
-      aria-label="Token"
-    >
-      <div className="mx-auto max-w-[1280px] px-6 sm:px-8">
-        <SectionHead
-          kicker="$SOLAR"
-          index="06"
-          lead="$SOLAR has a fixed supply of 1 billion. 15% is allocated at genesis with long-term vesting. 85% is issued over time through energy-based distribution. Early years are front-loaded, then a long tail supports infrastructure growth."
-        >
-          <span className="orange-word">Fixed supply.</span> Energy-based
-          issuance.
-        </SectionHead>
-      </div>
+    <Section id="token" label="SOLAR economics">
+      <SectionHead
+        kicker="SOLAR economics"
+        index="07"
+        lead="SOLAR is designed as the utility asset of the Solarius network. The economic model connects verified production, validator participation, wallet activity and ecosystem utility into one network economy."
+      >
+        Designed around verified production and{" "}
+        <span className="orange-word">network utility.</span>
+      </SectionHead>
 
-      <div className="relative mx-auto mt-16 grid max-w-[1280px] grid-cols-1 gap-16 px-6 sm:px-8 md:grid-cols-2 md:items-center">
+      {/* Utility bullets. */}
+      <Reveal>
+        <ul className="flex flex-wrap items-center gap-x-3 gap-y-3">
+          {utility.map((u) => (
+            <li
+              key={u}
+              className="inline-flex items-center gap-2 rounded-full border border-[var(--hairline)] bg-white/40 px-3.5 py-2 text-[12.5px] text-ink-muted"
+            >
+              <span
+                aria-hidden
+                className="inline-block h-1.5 w-1.5 rounded-full bg-orange/70"
+              />
+              {u}
+            </li>
+          ))}
+        </ul>
+      </Reveal>
+
+      {/* Existing allocation chart, kept beneath the new lead-in. */}
+      <div className="mt-14 grid grid-cols-1 gap-16 md:grid-cols-2 md:items-center">
         <Reveal>
           <div className="grid max-w-md grid-cols-2 gap-10">
             <div>
@@ -593,7 +675,7 @@ function Token() {
                 85<span className="text-orange">%</span>
               </div>
               <div className="mono mt-4 text-[11px] uppercase tracking-[0.16em] text-ink-faint">
-                Energy-based issuance
+                Network issuance
               </div>
             </div>
           </div>
@@ -656,273 +738,101 @@ function Token() {
                 Total supply
               </div>
               <div className="mono mt-1 text-[11px] uppercase tracking-[0.2em] text-orange">
-                $SOLAR
+                SOLAR
               </div>
             </div>
           </div>
         </Reveal>
       </div>
-    </section>
+    </Section>
   );
 }
 
-/* ───────────────────────────────────────────────────── ROADMAP */
+/* ─────────────────────────────────────────────────── ROADMAP (§2.12) */
 
 function Roadmap() {
   const phases = [
     {
-      when: "Feb 2023 – Mar 2026",
-      t: "Build",
-      d: "Mining Pool, Solar Miner development, CryptoCat (1.8M users), L1 foundation.",
+      t: "Foundation Built",
+      d: "Proof-of-Energy architecture, mining pool infrastructure, CryptoCat reach and Solar Miner layer.",
     },
     {
-      when: "April 2026",
-      t: "Pre-Network",
-      d: "First Solar Miner installed, validator setup, L1 MVP ready.",
+      t: "Proof Demonstrated",
+      d: "April 29 Proof-of-Energy demonstration, network activity and producer activations.",
     },
     {
-      when: "Jun – Aug 2026",
-      t: "Network Bootstrap",
-      d: "TGE, Alpha Node yield program, real validators, chain producing blocks, airdrop.",
-      highlight: true,
+      t: "Network Launch Readiness",
+      d: "Validator onboarding, Verdex wallet / claim readiness, docs and explorer evidence.",
     },
     {
-      when: "Sep – Nov 2026",
-      t: "Controlled Expansion",
-      d: "More hardware, exchange listings, ICO, liquidity.",
+      t: "Market Infrastructure Readiness",
+      d: "Token mechanics, market-maker review and exchange/on-ramp readiness.",
     },
     {
-      when: "Dec 2026 – Jul 2027",
-      t: "Market Validation",
-      d: "Stable mining economics, secondary liquidity, CryptoCat airdrop #2.",
+      t: "Infrastructure Scale",
+      d: "Solar Miner rollout path, more producers, more verified energy data and broader validator participation.",
     },
     {
-      when: "Jun – Dec 2027",
-      t: "Institutionalization",
-      d: "Third-party builders, RWA integrations, industrial solar.",
+      t: "Environmental-Commodity Pathway",
+      d: "SREC / REC rails, energy-sector partnerships and tokenized environmental-commodity settlement.",
     },
   ];
 
   return (
-    <section
-      id="roadmap"
-      className="relative w-full py-[var(--section-y)]"
-      aria-label="Roadmap"
-    >
-      <div className="relative mx-auto max-w-[1280px] px-6 sm:px-8">
-        <SectionHead
-          kicker="Roadmap"
-          index="07"
-          lead="TGE in June 2026. Build first, ship hardware, then bring the network live with real validators and real energy."
-        >
-          Building <span className="orange-word">in phases.</span>
-        </SectionHead>
+    <Section id="roadmap" label="Roadmap" alt>
+      <SectionHead
+        kicker="Roadmap"
+        index="08"
+        lead="Solarius is moving through a staged infrastructure buildout: energy verification, validator readiness, wallet access, producer activation and environmental-commodity rails."
+      >
+        From working proof to{" "}
+        <span className="orange-word">infrastructure scale.</span>
+      </SectionHead>
 
-        <ol className="mt-16">
-          {phases.map((p, i) => (
-            <Reveal
-              key={p.t}
-              delay={i * 70}
-              className="grid grid-cols-1 gap-x-10 gap-y-2 border-t border-[var(--hairline)] py-7 last:border-b sm:grid-cols-[14rem_minmax(0,1fr)]"
-            >
-              <div className="flex items-center gap-3">
-                <span
-                  aria-hidden
-                  className="inline-block h-2 w-2 rounded-full"
-                  style={{
-                    background: p.highlight ? "var(--orange)" : "transparent",
-                    boxShadow: p.highlight
-                      ? "0 0 0 4px rgba(240,117,1,0.16)"
-                      : "inset 0 0 0 1.5px var(--ink-faint)",
-                  }}
-                />
-                <span className="mono text-[11px] uppercase tracking-[0.16em] text-orange">
-                  {p.when}
-                </span>
-              </div>
-              <div className="max-w-2xl sm:pl-0">
-                <h3 className="flex items-baseline gap-3 text-[clamp(19px,1.9vw,24px)] tracking-[-0.02em]">
-                  {p.t}
-                  {p.highlight && (
-                    <span className="mono text-[10px] uppercase tracking-[0.18em] text-orange">
-                      TGE
-                    </span>
-                  )}
-                </h3>
-                <p className="body mt-2">{p.d}</p>
-              </div>
-            </Reveal>
-          ))}
-        </ol>
-      </div>
-    </section>
+      <ol>
+        {phases.map((p, i) => (
+          <Reveal
+            key={p.t}
+            delay={i * 60}
+            className="grid grid-cols-1 gap-x-10 gap-y-2 border-t border-[var(--hairline)] py-7 last:border-b sm:grid-cols-[12rem_minmax(0,1fr)]"
+          >
+            <div className="flex items-center gap-3">
+              <span
+                aria-hidden
+                className="inline-block h-2 w-2 rounded-full"
+                style={{ boxShadow: "inset 0 0 0 1.5px var(--ink-faint)" }}
+              />
+              <span className="mono text-[11px] uppercase tracking-[0.16em] text-orange">
+                Phase {String(i + 1).padStart(2, "0")}
+              </span>
+            </div>
+            <div className="max-w-2xl">
+              <h3 className="text-[clamp(19px,1.9vw,24px)] tracking-[-0.02em]">
+                {p.t}
+              </h3>
+              <p className="body mt-2">{p.d}</p>
+            </div>
+          </Reveal>
+        ))}
+      </ol>
+    </Section>
   );
 }
 
-/* ───────────────────────────────────────────────────── FINAL CTA */
+/* ─────────────────────────────────────────────────── FINAL CTA (§2.13) */
 
 function FinalCTA() {
-  // Three proof points, mono tags — the same vocabulary as the device specs.
-  const proof = [
-    "Real infrastructure",
-    "Measured output",
-    "Energy-secured consensus",
-  ];
-
   return (
-    <section
-      id="whitelist"
-      className="relative w-full bg-pearl-alt py-[var(--section-y)]"
-      aria-label="Join the whitelist"
-    >
-      <div className="mx-auto grid max-w-[1280px] grid-cols-1 gap-x-16 gap-y-12 px-6 sm:px-8 lg:grid-cols-2 lg:items-start">
-        {/* Copy */}
-        <div>
-          <p className="kicker">Stay up-to-date</p>
-          <h2 className="mt-5 text-balance">
-            Join <span className="orange-word">early access.</span>
-          </h2>
-          <Reveal delay={80}>
-            <p className="lead mt-6">
-              Solarious is entering its next growth phase. Whitelist
-              participants receive early access to hardware deployment and
-              validator onboarding.
-            </p>
-          </Reveal>
+    <Section id="whitelist" label="Join the network">
+      <SectionHead
+        kicker="Join the network"
+        lead="Solarius is opening strategic conversations across investment, validator infrastructure, energy production, market infrastructure and ecosystem distribution."
+      >
+        Help build the <span className="orange-word">Proof-of-Energy</span>{" "}
+        economy.
+      </SectionHead>
 
-          <Reveal delay={140}>
-            <ul className="mt-9 flex flex-wrap items-center gap-x-4 gap-y-2 text-[13px] text-ink">
-              {proof.map((p, i) => (
-                <li key={p} className="flex items-center gap-4">
-                  {i > 0 && (
-                    <span
-                      aria-hidden
-                      className="h-3 w-px bg-[var(--hairline)]"
-                    />
-                  )}
-                  <span className="flex items-center gap-2">
-                    <span
-                      aria-hidden
-                      className="inline-block h-1.5 w-1.5 rounded-full bg-orange/70"
-                    />
-                    {p}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-        </div>
-
-        {/* Email capture */}
-        <Reveal delay={120} className="lg:pt-2">
-          <WhitelistForm />
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-/* ───────────────────────────────────────────────────── FOOTER */
-
-function Footer() {
-  const legal = [
-    "Website Terms",
-    "Protocol Terms",
-    "Risk Disclosure",
-    "Token Disclaimer",
-    "Community Guidelines",
-    "Hardware Terms",
-  ];
-
-  return (
-    <footer className="relative w-full bg-midnight text-white/80">
-      <div className="relative mx-auto max-w-[1280px] px-6 py-24 sm:px-8 lg:py-32">
-        {/* Brand left, link columns as an even-gap group on the right. */}
-        <div className="flex flex-col gap-16 lg:flex-row lg:justify-between lg:gap-24">
-          <div className="max-w-sm">
-            <Logo
-              variant="white"
-              className="h-9 w-auto"
-              width={205}
-              height={36}
-            />
-            <p className="mt-7 text-[15px] leading-[1.7] text-white/55">
-              The energy-backed blockchain. Solar production measured, verified,
-              and written on-chain.
-            </p>
-            <p className="mono mt-10 text-[11px] uppercase tracking-[0.2em] text-white/40">
-              TGE · June 2026
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 gap-x-10 gap-y-12 sm:grid-cols-4 sm:gap-x-14 lg:gap-x-20">
-            <FooterCol
-              title="Resources"
-              links={[
-                "News",
-                "Whitepaper",
-                "Executive Summary",
-                "Investor Model",
-                "Investor Thesis",
-                "Presentation",
-              ]}
-            />
-            <FooterCol
-              title="Protocol"
-              links={["Explorer", "API Docs", "GitHub"]}
-            />
-            <FooterCol
-              title="Products"
-              links={[
-                "CryptoCat",
-                "Verdex Wallet",
-                "Mining Pool",
-                "SOLAR Miners",
-                "Alpha Nodes",
-              ]}
-            />
-            <FooterCol
-              title="Community"
-              links={["X", "Telegram", "LinkedIn", "Contact"]}
-            />
-          </div>
-        </div>
-
-        {/* Bottom bar: legal left, copyright right. */}
-        <div className="mt-20 flex flex-col gap-5 border-t border-white/10 pt-10 sm:mt-28 sm:flex-row sm:items-center sm:justify-between">
-          <ul className="flex flex-wrap gap-x-6 gap-y-2 text-[12px] text-white/45">
-            {legal.map((l) => (
-              <li key={l}>
-                <a href="#" className="transition hover:text-white">
-                  {l}
-                </a>
-              </li>
-            ))}
-          </ul>
-          <div className="mono shrink-0 text-[12px] text-white/40">
-            © 2026 Solarious. All rights reserved.
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
-}
-
-function FooterCol({ title, links }: { title: string; links: string[] }) {
-  return (
-    <div>
-      <div className="mono text-[11px] uppercase tracking-[0.18em] text-white/45">
-        {title}
-      </div>
-      <ul className="mt-5 space-y-3.5 text-[14px]">
-        {links.map((l) => (
-          <li key={l}>
-            <a href="#" className="text-white/70 transition hover:text-white">
-              {l}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </div>
+      <ContactBlock />
+    </Section>
   );
 }

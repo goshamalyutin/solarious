@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" fill="none" role="img" aria-label="Simcat rebrands to Solarious">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1280" y2="720" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFB800"/>
+      <stop offset="0.55" stop-color="#F07501"/>
+      <stop offset="1" stop-color="#E13202"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#FFF3D8" stop-opacity="0.9"/>
+      <stop offset="0.6" stop-color="#FFE0A0" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="#FFE0A0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#g)"/>
+  <circle cx="960" cy="200" r="320" fill="url(#sun)"/>
+  <g fill="#0A0A0A">
+    <text x="80" y="430" font-family="Inter, system-ui, sans-serif" font-size="40" font-weight="600" letter-spacing="6" opacity="0.6">SOLARIOUS · NEWS</text>
+    <text x="80" y="520" font-family="Inter, system-ui, sans-serif" font-size="84" font-weight="700" letter-spacing="-2">Simcat → Solarious</text>
+  </g>
+</svg>
