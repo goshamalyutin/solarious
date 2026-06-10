@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { GlassButton } from "@/components/ui/apple-tahoe-liquid-glass-button";
 import { ArrowRight } from "@/components/icons";
 import { HeroHeadline } from "@/components/hero/HeroHeadline";
@@ -12,45 +13,68 @@ const PROOF_CHIPS = [
 ];
 
 /**
- * HeroContent — the hero foreground (headline, subcopy, CTAs, proof chips).
+ * HeroContent — the hero foreground.
+ *
+ * Two-column on desktop: copy (headline, subcopy, CTAs, proof chips) on the
+ * left, the glass globe on the right. On mobile it collapses to one column with
+ * the globe FIRST (top), copy below, everything centered. At md+ the copy is
+ * left-aligned and the globe moves to the right.
+ *
  * No background layers live here; HeroPrismatic owns the light behind it.
  */
 export function HeroContent() {
   return (
-    <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center px-6 pb-10 text-center sm:px-8 md:pb-14">
-      <HeroHeadline />
+    <div className="relative z-10 mx-auto grid w-full max-w-5xl grid-cols-1 items-center gap-10 px-6 pb-10 text-center sm:px-8 md:grid-cols-2 md:pb-14 md:text-left lg:gap-16">
+      {/* Copy column — left on desktop, second on mobile. */}
+      <div className="order-2 flex flex-col items-center md:order-1 md:items-start">
+        <HeroHeadline />
 
-      <p className="reveal reveal-2 mt-7 max-w-xl text-[clamp(16px,1.4vw,19px)] leading-[1.55] text-ink-muted">
-        Solarius connects measured solar output with network verification,
-        wallet access and SREC / REC settlement rails.
-      </p>
+        <p className="reveal reveal-2 mt-8 max-w-md text-[16px] leading-[1.65] text-ink-muted md:mt-16">
+          Solarius connects measured solar output with network verification,
+          wallet access and SREC / REC settlement rails.
+        </p>
 
-      <div className="reveal reveal-3 mt-9 flex flex-col items-center gap-3 sm:flex-row">
-        <a href="#whitelist" className="btn btn-primary btn-lg">
-          Join the Whitelist
-          <ArrowRight />
-        </a>
-        <a href="#proof" className="inline-block">
-          <GlassButton size="lg" className="text-ink">
-            Explore Proof-of-Energy
-          </GlassButton>
-        </a>
+        <div className="reveal reveal-3 mt-8 flex flex-col items-center gap-3 sm:flex-row md:mt-14">
+          <a href="#whitelist" className="btn btn-primary btn-lg">
+            Join the Whitelist
+            <ArrowRight />
+          </a>
+          <a href="#proof" className="inline-block">
+            <GlassButton size="lg" className="text-ink">
+              Explore Proof-of-Energy
+            </GlassButton>
+          </a>
+        </div>
+
+        <ul className="reveal reveal-4 mt-8 flex flex-wrap items-center justify-center gap-x-3 gap-y-3 md:mt-10 md:justify-start">
+          {PROOF_CHIPS.map((chip) => (
+            <li
+              key={chip}
+              className="inline-flex items-center gap-2 rounded-full border border-[var(--hairline)] bg-white/45 px-3.5 py-2 text-[12.5px] text-ink-muted backdrop-blur-sm"
+            >
+              <span
+                aria-hidden
+                className="inline-block h-1.5 w-1.5 rounded-full bg-orange/70"
+              />
+              {chip}
+            </li>
+          ))}
+        </ul>
       </div>
 
-      <ul className="reveal reveal-4 mt-12 flex flex-wrap items-center justify-center gap-x-3 gap-y-3">
-        {PROOF_CHIPS.map((chip) => (
-          <li
-            key={chip}
-            className="inline-flex items-center gap-2 rounded-full border border-[var(--hairline)] bg-white/45 px-3.5 py-2 text-[12.5px] text-ink-muted backdrop-blur-sm"
-          >
-            <span
-              aria-hidden
-              className="inline-block h-1.5 w-1.5 rounded-full bg-orange/70"
-            />
-            {chip}
-          </li>
-        ))}
-      </ul>
+      {/* Globe column — right on desktop, first (top) on mobile. The PNG carries
+          its own glow, so the image is sized smaller than its box (max-w) and
+          never clipped: w-full h-auto, no overflow-hidden on the column. */}
+      <div className="order-1 md:order-2">
+        <Image
+          src="/assets/hero-glass.png"
+          width={560}
+          height={560}
+          alt="Solarious global energy network"
+          priority
+          className="pointer-events-none mx-auto h-auto w-full max-w-[260px] select-none sm:max-w-[320px] md:max-w-[440px] lg:max-w-[520px]"
+        />
+      </div>
     </div>
   );
 }

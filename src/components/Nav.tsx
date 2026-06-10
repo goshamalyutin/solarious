@@ -42,7 +42,7 @@ export function Nav() {
           <Logo
             variant="gradient"
             className="h-6 w-auto"
-            width={140}
+            width={98}
             height={24}
             priority
           />

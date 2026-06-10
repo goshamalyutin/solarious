@@ -55,7 +55,10 @@ function Section({
     <section
       id={id}
       aria-label={label}
-      className={cn("relative w-full py-14 md:py-20", alt && "bg-pearl-alt")}
+      className={cn(
+        "relative w-full py-[var(--section-y)]",
+        alt && "bg-pearl-alt",
+      )}
     >
       <div className="mx-auto max-w-[1200px] px-5 md:px-8">{children}</div>
     </section>
@@ -520,7 +523,7 @@ function Ecosystem() {
 function WhyQuote() {
   return (
     <section
-      className="relative w-full overflow-hidden bg-midnight py-14 text-white md:py-20"
+      className="relative w-full overflow-hidden bg-midnight py-[var(--section-y)] text-white"
       aria-label="Why energy"
     >
       {/* Faint amber floor glow — single warm light source, no second hue. */}
@@ -620,11 +623,11 @@ function SolarEconomics() {
   // Allocation chart kept verbatim (15 / 85 split + 1B total supply, brief §2.11).
   const segments = [
     { name: "Ecosystem", pct: 34.0, color: "#F07501" },
-    { name: "Validator rewards", pct: 25.5, color: "#FFB323" },
-    { name: "Investors", pct: 15.0, color: "#E8431C" },
-    { name: "Reserves & Listing", pct: 9.0, color: "#B26A35" },
-    { name: "Producer rewards", pct: 8.5, color: "#7E5638" },
-    { name: "Team & Advisors", pct: 8.0, color: "#4A3328" },
+    { name: "Validator rewards", pct: 25.5, color: "#FF9D5C" },
+    { name: "Investors", pct: 15.0, color: "#FFC59A" },
+    { name: "Reserves & Listing", pct: 9.0, color: "#D45F00" },
+    { name: "Producer rewards", pct: 8.5, color: "#A84800" },
+    { name: "Team & Advisors", pct: 8.0, color: "#7A3400" },
   ];
   const C = 2 * Math.PI * 80;
   let cumulative = 0;

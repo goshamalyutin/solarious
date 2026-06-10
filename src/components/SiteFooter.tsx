@@ -61,13 +61,13 @@ const COLUMNS: FooterColumn[] = [
 export function SiteFooter() {
   return (
     <footer className="relative w-full bg-midnight text-white/80">
-      <div className="relative mx-auto max-w-[1200px] px-5 py-16 md:px-8 md:py-20">
+      <div className="relative mx-auto max-w-[1200px] px-5 py-[var(--section-y)] md:px-8">
         <div className="flex flex-col gap-14 lg:flex-row lg:justify-between lg:gap-24">
           <div className="max-w-sm">
             <Logo
               variant="white"
               className="h-9 w-auto"
-              width={205}
+              width={148}
               height={36}
             />
             <p className="mt-7 text-[15px] leading-[1.7] text-white/55">

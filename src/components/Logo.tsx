@@ -11,7 +11,7 @@ type LogoProps = {
 export function Logo({
   variant = "gradient",
   className,
-  width = 140,
+  width = 115,
   height = 28,
   priority = false,
 }: LogoProps) {
