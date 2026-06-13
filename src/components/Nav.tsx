@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
 import { ArrowRight } from "@/components/icons";
+import { GlassButton } from "@/components/ui/apple-tahoe-liquid-glass-button";
 
 /**
  * Floating glass header. Desktop shows the in-page section anchors; the primary
@@ -61,9 +62,15 @@ export function Nav() {
         </div>
 
         <div className="flex items-center gap-2">
-          <Link href="/#whitelist" className="btn btn-primary btn-sm">
-            Join the Whitelist
-            <ArrowRight />
+          <Link href="/#whitelist" className="inline-block">
+            <GlassButton
+              size="sm"
+              glassColor="rgba(240,117,1,0.55)"
+              className="text-ink whitespace-nowrap ring-1 ring-[var(--orange)] shadow-[0_0_16px_rgba(240,117,1,0.35)]"
+            >
+              Join the Whitelist
+              <ArrowRight />
+            </GlassButton>
           </Link>
           <button
             type="button"

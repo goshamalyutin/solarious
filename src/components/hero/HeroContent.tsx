@@ -35,12 +35,23 @@ export function HeroContent() {
         </p>
 
         <div className="reveal reveal-3 mt-8 flex flex-col items-center gap-3 sm:flex-row md:mt-14">
-          <a href="#whitelist" className="btn btn-primary btn-lg">
-            Join the Whitelist
-            <ArrowRight />
+          <a href="#whitelist" className="inline-block">
+            <GlassButton
+              size="lg"
+              glassColor="rgba(240,117,1,0.55)"
+              className="h-14 whitespace-nowrap text-ink ring-1 ring-[var(--orange)] shadow-[0_0_16px_rgba(240,117,1,0.35)]"
+              contentClassName="whitespace-nowrap"
+            >
+              Join the Whitelist
+              <ArrowRight />
+            </GlassButton>
           </a>
           <a href="#proof" className="inline-block">
-            <GlassButton size="lg" className="text-ink">
+            <GlassButton
+              size="lg"
+              className="h-14 whitespace-nowrap text-ink"
+              contentClassName="whitespace-nowrap"
+            >
               Explore Proof-of-Energy
             </GlassButton>
           </a>

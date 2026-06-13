@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ArrowRight } from "@/components/icons";
+import { GlassButton } from "@/components/ui/apple-tahoe-liquid-glass-button";
 
 /**
  * §2.13 Final CTA — four audience cards beside a real strategic-contact form.
@@ -246,14 +247,16 @@ export function ContactBlock() {
             </p>
           )}
 
-          <button
+          <GlassButton
             type="submit"
+            size="lg"
+            glassColor="rgba(240,117,1,0.55)"
             disabled={!canSubmit}
-            className="btn btn-primary btn-lg mt-2 w-full disabled:cursor-not-allowed disabled:opacity-45 sm:w-auto sm:justify-self-start"
+            className="mt-2 w-full whitespace-nowrap text-ink ring-1 ring-[var(--orange)] shadow-[0_0_16px_rgba(240,117,1,0.35)] disabled:cursor-not-allowed disabled:opacity-45 sm:w-auto sm:justify-self-start"
           >
             {status === "sending" ? "Sending…" : "Join the Whitelist"}
             {status !== "sending" && <ArrowRight />}
-          </button>
+          </GlassButton>
         </form>
       )}
     </div>
