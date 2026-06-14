@@ -71,7 +71,7 @@ export function SiteFooter() {
               height={36}
             />
             <p className="mt-7 text-[15px] leading-[1.7] text-white/55">
-              Solarius is building Proof-of-Energy infrastructure for verified
+              Solarious is building Proof-of-Energy infrastructure for verified
               renewable production and environmental-commodity settlement.
             </p>
           </div>
