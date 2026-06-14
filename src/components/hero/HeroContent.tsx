@@ -83,7 +83,7 @@ export function HeroContent() {
           height={560}
           alt="Solarious global energy network"
           priority
-          className="pointer-events-none mx-auto h-auto w-full max-w-[260px] select-none sm:max-w-[320px] md:max-w-[440px] lg:max-w-[520px]"
+          className="pointer-events-none mx-auto aspect-square h-auto w-full max-w-[280px] select-none object-contain sm:max-w-[320px] md:max-w-[440px] lg:max-w-[520px]"
         />
       </div>
     </div>
