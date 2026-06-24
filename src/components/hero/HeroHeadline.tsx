@@ -37,7 +37,7 @@ export function HeroHeadline() {
           on this <h1> is silently ignored. Inline style wins cleanly (no
           !important). Tightened to fit the narrow copy column. */}
       <h1
-        className="mt-5 font-semibold leading-[1.1] md:leading-[1.05]"
+        className="pt-4 font-semibold leading-[1.1] md:pt-0 md:leading-[1.05]"
         style={{
           letterSpacing: "var(--display-track)",
           fontSize: "clamp(28px, 3vw, 40px)",

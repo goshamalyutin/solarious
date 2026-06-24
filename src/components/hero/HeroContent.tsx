@@ -24,12 +24,12 @@ const PROOF_CHIPS = [
  */
 export function HeroContent() {
   return (
-    <div className="relative z-10 mx-auto grid w-full max-w-5xl grid-cols-1 items-center gap-10 px-6 pb-10 text-center sm:px-8 md:grid-cols-2 md:pb-14 md:text-left lg:gap-16">
+    <div className="relative z-10 mx-auto grid w-full max-w-5xl grid-cols-1 items-center gap-10 px-6 pt-8 pb-10 text-center sm:px-8 md:grid-cols-2 md:pt-0 md:pb-14 md:text-left lg:gap-16">
       {/* Copy column — left on desktop, second on mobile. */}
       <div className="order-2 flex flex-col items-center md:order-1 md:items-start">
         <HeroHeadline />
 
-        <p className="reveal reveal-2 mt-8 max-w-md text-[16px] leading-[1.65] text-ink-muted md:mt-16">
+        <p className="reveal reveal-2 pt-4 max-w-md text-[16px] leading-[1.65] text-ink-muted md:pt-0 md:mt-16">
           Solarious transforms measured solar output into verifiable digital
           assets, connecting energy producers to wallets, validators, and SREC /
           REC markets.
@@ -102,7 +102,7 @@ export function HeroContent() {
           height={974}
           alt="Solarious solar disc with lifting coins, bearing the sunburst emblem"
           priority
-          className="pointer-events-none relative z-[1] mx-auto aspect-square h-auto w-full max-w-[380px] select-none object-contain sm:max-w-[430px] md:max-w-[595px] lg:max-w-[700px]"
+          className="pointer-events-none relative z-[1] mx-auto aspect-square h-auto w-[300px] select-none object-contain sm:w-full sm:max-w-[430px] md:max-w-[595px] lg:max-w-[700px]"
         />
       </div>
     </div>
