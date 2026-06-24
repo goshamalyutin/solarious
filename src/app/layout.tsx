@@ -65,7 +65,7 @@ export const metadata: Metadata = {
   title:
     "Solarious — Proof-of-Energy Layer-1 for Verified Renewable Production",
   description:
-    "Solarius builds blockchain infrastructure to verify, record and monetize renewable energy production through Proof-of-Energy, validator infrastructure and SREC / REC settlement rails.",
+    "Solarious builds blockchain infrastructure to verify, record and monetize renewable energy production through Proof-of-Energy, validator infrastructure and SREC / REC settlement rails.",
   metadataBase: new URL("https://solarius.vercel.app"),
   openGraph: {
     title: "Solarious — Verified Renewable Production On-Chain",

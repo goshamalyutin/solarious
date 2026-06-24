@@ -118,7 +118,7 @@ export function NetworkExpand() {
     return (
       <section
         className="relative w-full bg-pearl pt-[clamp(40px,6vh,84px)] pb-[clamp(28px,4vh,56px)]"
-        aria-label="Solarius in motion"
+        aria-label="Solarious in motion"
       >
         <figure className="relative m-0 w-full overflow-hidden">
           <video
@@ -132,7 +132,7 @@ export function NetworkExpand() {
             playsInline
             preload="metadata"
             controls
-            aria-label="Solarius product reel"
+            aria-label="Solarious product reel"
           />
         </figure>
         <div className="mx-auto max-w-[1200px] px-5 md:px-8">
@@ -146,7 +146,7 @@ export function NetworkExpand() {
   return (
     <section
       ref={sectionRef}
-      aria-label="Solarius in motion"
+      aria-label="Solarious in motion"
       className="relative w-full min-h-[280svh] md:min-h-[420svh]"
     >
       <div className="sticky top-0 flex h-svh flex-col overflow-hidden bg-pearl">
@@ -187,7 +187,7 @@ export function NetworkExpand() {
               loop
               playsInline
               preload="metadata"
-              aria-label="Solarius product reel"
+              aria-label="Solarious product reel"
             />
           </motion.div>
         </div>

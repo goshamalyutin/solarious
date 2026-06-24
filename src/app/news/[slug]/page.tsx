@@ -73,7 +73,7 @@ export default async function NewsArticle({
             <p>{post.excerpt}</p>
             {/* TODO: real article body. */}
             <p>
-              Full article coming soon. This post is part of the Solarius news
+              Full article coming soon. This post is part of the Solarious news
               feed — announcements and updates from the Proof-of-Energy Layer-1
               for verified renewable production.
             </p>

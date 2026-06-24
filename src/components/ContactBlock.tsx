@@ -27,23 +27,23 @@ type Interest = (typeof INTEREST_OPTIONS)[number];
 const CARDS: { title: string; description: string; interest: Interest }[] = [
   {
     title: "Investors",
-    description: "Request investor materials and dataroom access.",
+    description: "Request investor materials and dataroom access",
     interest: "Investor",
   },
   {
     title: "Validators",
-    description: "Explore infrastructure participation.",
+    description: "Explore infrastructure participation",
     interest: "Validator",
   },
   {
     title: "Energy Producers",
-    description: "Join the Solar Miner / producer interest list.",
+    description: "Join the Solar Miner / producer interest list",
     interest: "Energy producer",
   },
   {
     title: "Partners",
     description:
-      "Discuss energy, RWA, market infrastructure or ecosystem distribution.",
+      "Discuss energy, RWA, market infrastructure or ecosystem distribution",
     interest: "Strategic partner",
   },
 ];
@@ -232,7 +232,7 @@ export function ContactBlock() {
               <a href="#" className="text-orange underline underline-offset-2">
                 Privacy Policy
               </a>{" "}
-              and consent to receive Solarius communications related to my
+              and consent to receive Solarious communications related to my
               request.
             </span>
           </label>

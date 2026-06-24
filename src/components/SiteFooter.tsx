@@ -70,10 +70,6 @@ export function SiteFooter() {
               width={148}
               height={36}
             />
-            <p className="mt-7 text-[15px] leading-[1.7] text-white/55">
-              Solarious is building Proof-of-Energy infrastructure for verified
-              renewable production and environmental-commodity settlement.
-            </p>
           </div>
 
           <div className="grid grid-cols-2 gap-x-10 gap-y-10 sm:grid-cols-4 sm:gap-x-14 lg:gap-x-20">

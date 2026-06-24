@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Nav } from "@/components/Nav";
 import { HeroPrismatic } from "@/components/hero/HeroPrismatic";
+import { Team } from "@/components/Team";
 import { NetworkExpand } from "@/components/NetworkExpand";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ContactBlock } from "@/components/ContactBlock";
@@ -29,6 +30,7 @@ export default function Home() {
       <Security />
       <SolarEconomics />
       <Roadmap />
+      <Team />
       <FinalCTA />
       <SiteFooter />
     </main>
@@ -127,7 +129,7 @@ function MarketProblem() {
       <SectionHead
         kicker="The market gap"
         index="01"
-        lead="Small and distributed solar producers often face delayed audits, registry friction, manual reconciliation and broker-dependent REC monetization. Solarius is building infrastructure to make renewable-energy production easier to verify, record and connect to programmable markets."
+        lead="Small and distributed solar producers often face delayed audits, registry friction, manual reconciliation and broker-dependent REC monetization. Solarious is building infrastructure to make renewable-energy production easier to verify, record and connect to programmable markets."
       >
         Renewable energy creates value that is still hard to verify and{" "}
         <span className="orange-word">monetize.</span>
@@ -161,15 +163,15 @@ function About() {
   ];
 
   return (
-    <Section id="about" label="What is Solarius">
-      <SectionHead kicker="What is Solarius" index="02">
+    <Section id="about" label="What is Solarious">
+      <SectionHead kicker="What is Solarious" index="02">
         A Layer-1 anchored to{" "}
         <span className="orange-word">measured energy.</span>
       </SectionHead>
 
       <Reveal>
         <p className="max-w-3xl text-[clamp(18px,1.9vw,24px)] leading-[1.45] tracking-[-0.01em] text-ink">
-          Solarius is a proprietary Layer-1 blockchain built around
+          Solarious is a proprietary Layer-1 blockchain built around
           Proof-of-Energy. Measured solar production becomes verifiable network
           activity, connecting real-world renewable output with validators,
           wallet access, SOLAR utility and environmental-commodity settlement.
@@ -212,7 +214,7 @@ function ProofOfEnergy() {
     },
     {
       t: "A proof record is created.",
-      d: "Production data is packaged for verification through the Solarius network.",
+      d: "Production data is packaged for verification through the Solarious network.",
     },
     {
       t: "Validators check the proof.",
@@ -302,7 +304,7 @@ function EvidenceMetrics() {
       <SectionHead
         kicker="Current evidence"
         index="04"
-        lead="Solarius already shows evidence across network activity, wallet access, producer activation and community reach. Together, these signals show an ecosystem moving from architecture into scale."
+        lead="Solarious already shows evidence across network activity, wallet access, producer activation and community reach. Together, these signals show an ecosystem moving from architecture into scale."
       >
         Network proof already <span className="orange-word">in motion.</span>
       </SectionHead>
@@ -446,7 +448,7 @@ function Ecosystem() {
     },
     {
       t: "Solar Miner",
-      d: "Measurement device designed to connect real solar output to the Solarius network.",
+      d: "Measurement device designed to connect real solar output to the Solarious network.",
       icon: "miner",
       href: "/miner",
     },
@@ -483,11 +485,11 @@ function Ecosystem() {
   ];
 
   return (
-    <Section id="ecosystem" label="Solarius ecosystem">
+    <Section id="ecosystem" label="Solarious ecosystem">
       <SectionHead
         kicker="Ecosystem"
         index="05"
-        lead="Solarius is not a single product. It is an ecosystem of measurement, verification, wallet access, infrastructure participation and environmental-commodity settlement."
+        lead="Solarious is not a single product. It is an ecosystem of measurement, verification, wallet access, infrastructure participation and environmental-commodity settlement."
       >
         Connected layers, built around{" "}
         <span className="orange-word">one network.</span>
@@ -637,7 +639,7 @@ function SolarEconomics() {
       <SectionHead
         kicker="SOLAR economics"
         index="07"
-        lead="SOLAR is designed as the utility asset of the Solarius network. The economic model connects verified production, validator participation, wallet activity and ecosystem utility into one network economy."
+        lead="SOLAR is designed as the utility asset of the Solarious network. The economic model connects verified production, validator participation, wallet activity and ecosystem utility into one network economy."
       >
         Designed around verified production and{" "}
         <span className="orange-word">network utility.</span>
@@ -786,7 +788,7 @@ function Roadmap() {
       <SectionHead
         kicker="Roadmap"
         index="08"
-        lead="Solarius is moving through a staged infrastructure buildout: energy verification, validator readiness, wallet access, producer activation and environmental-commodity rails."
+        lead="Solarious is moving through a staged infrastructure buildout: energy verification, validator readiness, wallet access, producer activation and environmental-commodity rails."
       >
         From working proof to{" "}
         <span className="orange-word">infrastructure scale.</span>
@@ -829,7 +831,7 @@ function FinalCTA() {
     <Section id="whitelist" label="Join the network">
       <SectionHead
         kicker="Join the network"
-        lead="Solarius is opening strategic conversations across investment, validator infrastructure, energy production, market infrastructure and ecosystem distribution."
+        lead="Solarious is opening strategic conversations across investment, validator infrastructure, energy production, market infrastructure and ecosystem distribution."
       >
         Help build the <span className="orange-word">Proof-of-Energy</span>{" "}
         economy.

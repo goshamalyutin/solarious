@@ -30,8 +30,9 @@ export function HeroContent() {
         <HeroHeadline />
 
         <p className="reveal reveal-2 mt-8 max-w-md text-[16px] leading-[1.65] text-ink-muted md:mt-16">
-          Solarius connects measured solar output with network verification,
-          wallet access and SREC / REC settlement rails.
+          Solarious transforms measured solar output into verifiable digital
+          assets, connecting energy producers to wallets, validators, and SREC /
+          REC markets.
         </p>
 
         <div className="reveal reveal-3 mt-8 flex flex-col items-center gap-3 sm:flex-row md:mt-14">
@@ -73,17 +74,35 @@ export function HeroContent() {
         </ul>
       </div>
 
-      {/* Globe column — right on desktop, first (top) on mobile. The PNG carries
-          its own glow, so the image is sized smaller than its box (max-w) and
-          never clipped: w-full h-auto, no overflow-hidden on the column. */}
-      <div className="order-1 md:order-2">
+      {/* Hero coin column — right on desktop, first (top) on mobile. The white
+          background was flood-filled to transparency (public/assets/hero-coin.png),
+          so it sits directly on the cream hero background with no card/frame:
+          contained in the same square slot, centered, never clipped. Behind it,
+          a soft orange glow + faint network arcs read the object as a connected
+          network node (aria-hidden, low opacity, no hard edge). */}
+      <div className="relative order-1 flex items-center justify-center md:order-2 md:h-full">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center"
+        >
+          {/* Soft radial orange glow that blends into the cream — no hard edge.
+              The decorative network arcs / spark dots were removed. */}
+          <div
+            className="absolute aspect-square w-[82%] rounded-full"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(240,117,1,0.16) 0%, rgba(240,117,1,0.07) 40%, rgba(240,117,1,0) 70%)",
+              filter: "blur(20px)",
+            }}
+          />
+        </div>
         <Image
-          src="/assets/hero-glass.png"
-          width={560}
-          height={560}
-          alt="Solarious global energy network"
+          src="/assets/hero-coin-v2.png"
+          width={769}
+          height={974}
+          alt="Solarious solar disc with lifting coins, bearing the sunburst emblem"
           priority
-          className="pointer-events-none mx-auto aspect-square h-auto w-full max-w-[280px] select-none object-contain sm:max-w-[320px] md:max-w-[440px] lg:max-w-[520px]"
+          className="pointer-events-none relative z-[1] mx-auto aspect-square h-auto w-full max-w-[380px] select-none object-contain sm:max-w-[430px] md:max-w-[595px] lg:max-w-[700px]"
         />
       </div>
     </div>

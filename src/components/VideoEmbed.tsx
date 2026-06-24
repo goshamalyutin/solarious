@@ -10,7 +10,7 @@ import { getHeroReelUrl, getHeroReelPosterUrl } from "@/lib/assets";
  * native controls and no autoplay.
  */
 export function VideoEmbed({
-  label = "Solarius product reel",
+  label = "Solarious product reel",
 }: {
   label?: string;
 }) {

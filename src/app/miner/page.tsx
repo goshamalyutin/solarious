@@ -75,7 +75,7 @@ export default function MinerPage() {
               />
               <img
                 src={getDeviceImageUrl()}
-                alt="The Solarius Solar Miner — a DC-only solar energy verification device."
+                alt="The Solarious Solar Miner — a DC-only solar energy verification device."
                 width={2000}
                 height={1090}
                 decoding="async"
@@ -157,7 +157,7 @@ export default function MinerPage() {
             />
             <img
               src={getDeviceImageUrl()}
-              alt="The Solarius Solar Miner device."
+              alt="The Solarious Solar Miner device."
               width={2000}
               height={1090}
               loading="lazy"
