@@ -562,6 +562,26 @@ p,
   }
 }
 
+/* Hero scene — gentle up/down drift for the scattered small coins. The
+   outer wrapper owns the float (translateY only) so the inner <img> keeps
+   its own static rotation. Duration + delay are set per-coin inline for a
+   staggered, non-synchronized feel. */
+@keyframes hero-coin-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-11px);
+  }
+}
+.hero-coin-float {
+  animation: hero-coin-float var(--float-dur, 8s) var(--ease-in-out, ease-in-out)
+    infinite;
+  animation-delay: var(--float-delay, 0s);
+  will-change: transform;
+}
+
 /* ── Mobile ────────────────────────────────────────────────── */
 
 @media (max-width: 720px) {

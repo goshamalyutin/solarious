@@ -37,3 +37,25 @@ export function getHeroReelPosterUrl(): string {
 export function getDeviceImageUrl(): string {
   return assetUrl("assets/device/solarius-device.webp");
 }
+
+/* Hero product-scene layers — transparent PNGs composed in HeroScene. */
+
+/** Glass solar disc with two coins lifting off — the center hero object. */
+export function getHeroDiscUrl(): string {
+  return assetUrl("assets/hero-coin-v2.png");
+}
+
+/** Solar panel render, standing at the back of the hero scene. */
+export function getHeroPanelUrl(): string {
+  return assetUrl("assets/hero/panel.png");
+}
+
+/** "Renewable Energy Certificate" card, standing at the right of the scene. */
+export function getHeroCertificateUrl(): string {
+  return assetUrl("assets/hero/certificate.png");
+}
+
+/** Glass SOLAR coin — the hero element (front) and the scattered small coins. */
+export function getHeroCoinUrl(): string {
+  return assetUrl("assets/hero/coin.png");
+}

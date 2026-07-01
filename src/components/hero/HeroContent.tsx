@@ -1,7 +1,7 @@
-import Image from "next/image";
 import { GlassButton } from "@/components/ui/apple-tahoe-liquid-glass-button";
 import { ArrowRight } from "@/components/icons";
 import { HeroHeadline } from "@/components/hero/HeroHeadline";
+import { HeroScene } from "@/components/hero/HeroScene";
 
 // Proof chips replace the old fixed-supply / node-count stat strip (brief §2.2):
 // positioning vocabulary only, no banned numbers or hardware part names.
@@ -74,36 +74,12 @@ export function HeroContent() {
         </ul>
       </div>
 
-      {/* Hero coin column — right on desktop, first (top) on mobile. The white
-          background was flood-filled to transparency (public/assets/hero-coin.png),
-          so it sits directly on the cream hero background with no card/frame:
-          contained in the same square slot, centered, never clipped. Behind it,
-          a soft orange glow + faint network arcs read the object as a connected
-          network node (aria-hidden, low opacity, no hard edge). */}
+      {/* Hero product scene — right on desktop, first (top) on mobile. The old
+          single disc/coin image and its orange arc/glow layers were removed;
+          HeroScene owns its own warm glow and composes the panel, coin and
+          certificate PNGs into one product scene. */}
       <div className="relative order-1 flex items-center justify-center md:order-2 md:h-full">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center"
-        >
-          {/* Soft radial orange glow that blends into the cream — no hard edge.
-              The decorative network arcs / spark dots were removed. */}
-          <div
-            className="absolute aspect-square w-[82%] rounded-full"
-            style={{
-              background:
-                "radial-gradient(circle, rgba(240,117,1,0.16) 0%, rgba(240,117,1,0.07) 40%, rgba(240,117,1,0) 70%)",
-              filter: "blur(20px)",
-            }}
-          />
-        </div>
-        <Image
-          src="/assets/hero-coin-v2.png"
-          width={769}
-          height={974}
-          alt="Solarious solar disc with lifting coins, bearing the sunburst emblem"
-          priority
-          className="pointer-events-none relative z-[1] mx-auto aspect-square h-auto w-[300px] select-none object-contain sm:w-full sm:max-w-[430px] md:max-w-[595px] lg:max-w-[700px]"
-        />
+        <HeroScene />
       </div>
     </div>
   );
